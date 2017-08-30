@@ -1,0 +1,70 @@
+version: '2'
+
+services:
+  wordpress-app:
+    image: tiredofit/wordpress
+    container_name: wordpress-app
+    links:
+    - wordpress-db
+    volumes:
+    - ./data/:/www/wordpress
+    - ./logs/:/www/logs
+    environment:
+    - VIRTUAL_HOST=url.hostname.com
+    - VIRTUAL_NETWORK=nginx-proxy
+    - VIRTUAL_PORT=80
+    - LETSENCRYPT_HOST=url.hostname.com
+    - LETSENCRYPT_EMAIL=user@hostname.com
+
+    - ZABBIX_HOSTNAME=wordpress-app
+
+    - DB_HOST=wordpress-db
+    - DB_NAME=wordpress
+    - DB_USER=wordpress
+    - DB_PASS=userpassword
+    networks:
+      - proxy-tier
+    restart: always
+
+  wordpress-db:
+    image: tiredofit/mariadb
+    container_name: wordpress-db
+    volumes:
+      - /var/local/db/wordpress-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=wordpress
+      - MYSQL_PASSWORD=userpassword
+
+      - ZABBIX_HOSTNAME=wordpress-db
+
+    networks:
+      - proxy-tier
+    restart: always
+
+  wordpress-db-backup:
+    container_name: wordpress-db-backup
+    image: tiredofit/mariadb-backup
+    links:
+     - wordpress-db
+    volumes:
+      - ./dbbackup:/backup
+    environment:
+      - DB_SERVER=wordpress-db
+      - DB_NAME=wordpress
+      - DB_USER=wordpress
+      - DB_PASSWORD=userpassword
+      - DB_DUMP_FREQ=1440
+      - DB_DUMP_BEGIN=0000
+      - DB_CLEANUP_TIME=8640
+      - COMPRESSION=BZ
+    networks:
+      - proxy-tier
+    restart: always
+
+networks:
+  proxy-tier:
+    external:
+      name: nginx-proxy
+
