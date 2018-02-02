@@ -2,7 +2,7 @@ version: '2'
 
 services:
   wordpress-app:
-    image: tiredofit/wordpress
+    image: registry.selfdesign.org/docker/wordpress:latest
     container_name: wordpress-app
     links:
     - wordpress-db
@@ -27,7 +27,7 @@ services:
     restart: always
 
   wordpress-db:
-    image: tiredofit/mariadb
+    image: registry.selfdesign.org/docker/mariadb
     container_name: wordpress-db
     volumes:
       - /var/local/db/wordpress-db:/var/lib/mysql
@@ -45,18 +45,19 @@ services:
 
   wordpress-db-backup:
     container_name: wordpress-db-backup
-    image: tiredofit/mariadb-backup
+    image: registry.selfdesign.org/docker/mysql-backup
     links:
      - wordpress-db
     volumes:
       - ./dbbackup:/backup
     environment:
       - DB_SERVER=wordpress-db
+      - DB_TYPE=mysql
       - DB_NAME=wordpress
       - DB_USER=wordpress
       - DB_PASSWORD=userpassword
       - DB_DUMP_FREQ=1440
-      - DB_DUMP_BEGIN=0000
+      #- DB_DUMP_BEGIN=0000
       - DB_CLEANUP_TIME=8640
       - COMPRESSION=BZ
     networks:
