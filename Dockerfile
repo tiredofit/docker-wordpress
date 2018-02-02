@@ -1,5 +1,5 @@
 FROM tiredofit/nginx-php-fpm:7.1-latest
-MAINTAINER Dave Conroy <daveconroy@selfdesign.org>
+MAINTAINER Dave Conroy <dave at tiredofit dot ca>
 
 
 ### Dependency Installation

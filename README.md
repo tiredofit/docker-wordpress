@@ -1,4 +1,4 @@
-# registry.selfdesign.org/docker/wordpress
+# tiredofit/wordpress
 
 # Introduction
 
@@ -14,7 +14,7 @@ Additional Components are PHP7 w/ APC, OpCache, Support - [WP-CLI](http://wp-cli
 
 # Authors
 
-- [Dave Conroy](daveconroy@selfdesign.org) [https://git.selfdesign.org/daveconroy]
+- [Dave Conroy](dave at tiredofit dot ca) [https://github.com/tiredofit]
 
 # Table of Contents
 
@@ -39,11 +39,11 @@ This image relies on an external MySQL Server, external SMTP Server, and is mean
 
 # Installation
 
-Automated builds of the image are available on [Registry](https://registry.selfdesign.org/docker/wordpress) and is the recommended method of installation.
+Automated builds of the image are available on [Registry](https://tiredofit/wordpress) and is the recommended method of installation.
 
 
 ```bash
-docker pull registry.selfdesign.org/docker/wordpress
+docker pull tiredofit/wordpress
 ```
 
 # Quick Start

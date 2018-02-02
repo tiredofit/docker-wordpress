@@ -2,7 +2,7 @@ version: '2'
 
 services:
   wordpress-app:
-    image: registry.selfdesign.org/docker/wordpress:latest
+    image: tiredofit/wordpress:latest
     container_name: wordpress-app
     links:
     - wordpress-db
@@ -27,7 +27,7 @@ services:
     restart: always
 
   wordpress-db:
-    image: registry.selfdesign.org/docker/mariadb
+    image: tiredofit/mariadb
     container_name: wordpress-db
     volumes:
       - /var/local/db/wordpress-db:/var/lib/mysql
@@ -45,7 +45,7 @@ services:
 
   wordpress-db-backup:
     container_name: wordpress-db-backup
-    image: registry.selfdesign.org/docker/mysql-backup
+    image: tiredofit/mysql-backup
     links:
      - wordpress-db
     volumes:
