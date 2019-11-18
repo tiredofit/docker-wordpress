@@ -30,12 +30,12 @@ services:
     image: tiredofit/mariadb
     container_name: wordpress-db
     volumes:
-      - /var/local/db/wordpress-db:/var/lib/mysql
+      - ./db:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=wordpress
-      - MYSQL_PASSWORD=userpassword
+      - ROOT_PASS=password
+      - DB_NAME=wordpress
+      - DB_USER=wordpress
+      - DB_PASS=userpassword
 
       - ZABBIX_HOSTNAME=wordpress-db
 
@@ -45,17 +45,17 @@ services:
 
   wordpress-db-backup:
     container_name: wordpress-db-backup
-    image: tiredofit/mysql-backup
+    image: tiredofit/db-backup
     links:
      - wordpress-db
     volumes:
       - ./dbbackup:/backup
     environment:
-      - DB_SERVER=wordpress-db
-      - DB_TYPE=mysql
+      - DB_HOST=wordpress-db
+      - DB_TYPE=mariadb
       - DB_NAME=wordpress
       - DB_USER=wordpress
-      - DB_PASSWORD=userpassword
+      - DB_PASS=userpassword
       - DB_DUMP_FREQ=1440
       #- DB_DUMP_BEGIN=0000
       - DB_CLEANUP_TIME=8640

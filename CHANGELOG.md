@@ -1,3 +1,18 @@
+## 4.4.1 2019-11-18 <dave at tiredofit dot ca>
+
+   ### Added
+      - Enable switching reverse proxy on and off with Nginx `ENABLE_HTTPS_REVERSE_PROXY`
+      - Alpine 3.10 Base
+      - Nginx 1.16
+      - PHP 7.3
+
+   ### Changed
+      - Major cleanup to code and modernize
+      - Moved init script to follow proper s6-overlay installations (/etc/cont-init.d)
+      - Cleaned up docker-compose.yml
+      - Added some verbosity to the README
+
+
 ## 4.4 2018-02-01  <dave at tiredofit dot ca>
 
 * Rebase

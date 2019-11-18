@@ -1,6 +1,10 @@
 #!/usr/bin/with-contenv bash
 
-if [ ! -f /tmp/state/10-nginx ]; then
+### Set Defaults
+ENABLE_HTTPS_REVERSE_PROXY=${ENABLE_HTTPS_REVERSE_PROXY:-"TRUE"}
+
+### Create Directory if doesn't exist
+mkdir -p /www/wordpress
 
 ### Make sure that DB is accessible
 while true; do
@@ -15,29 +19,26 @@ while true; do
   sleep 2
 done
 
+### Perform Nginx reverse proxy modifications
+if [ "$ENABLE_HTTPS_REVERSE_PROXY" = "TRUE" ] || [ "$ENABLE_HTTPS_REVERSE_PROXY" = "true" ]; then
+   sed -i -e "s/<REVERSE_PROXY>/on/g" /etc/nginx/conf.d/default.conf
+else
+   echo "** [wordpress] Disabling Nginx Reverse Proxy HTTPS Termination Support"
+   sed -i -e "s/<REVERSE_PROXY>/off/g" /etc/nginx/conf.d/default.conf
+fi
 
 ### Check to see if this is a new install, if yes download Wordpress and other pieces...
 if [ ! -f /www/wordpress/index.php ] ; then
    echo "** [wordpress] Wordpress Not Found, Downloading and setting up......"
    cd /tmp
-   curl -O https://wordpress.org/latest.tar.gz
-   tar xvfz /tmp/latest.tar.gz -C /www/ --overwrite  > /dev/null
-   rm -rf latest.tar.gz
-   echo "** [wordpress] Insalled... Please visit the website and enter in DB Credentials"
+   curl -sSL https://wordpress.org/latest.tar.gz | tar xvfz - --strip 1 -C /www/wordpress
    rm -rf /www/wordpress/readme.html
    rm -rf /www/wordpress/license.txt
    rm -rf /www/wordpress/wp-content/plugins/hello.php
+   echo "** [wordpress] Insalled... Please visit the website and enter in DB Credentials"
    chown nginx:www-data /www/wordpress
 fi
 
 ### Force Reset Permissions for Security
 chown -R nginx:www-data /www/wordpress
-
-## Start nginx
-  mkdir -p /tmp/state
-  echo 'Initialization Complete' >/tmp/state/10-nginx
-fi
-
-echo ''
-echo '** [wordpress] Starting nginx..'
-exec nginx
+touch /tmp/state/30-init-wordpress
