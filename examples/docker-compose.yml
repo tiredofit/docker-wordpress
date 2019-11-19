@@ -17,7 +17,7 @@ services:
     - LETSENCRYPT_EMAIL=user@hostname.com
 
     - ZABBIX_HOSTNAME=wordpress-app
-
+    - ENABLE_HTTPS_REVERSE_PROXY=FALSE
     - DB_HOST=wordpress-db
     - DB_NAME=wordpress
     - DB_USER=wordpress
