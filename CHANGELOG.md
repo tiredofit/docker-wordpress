@@ -1,3 +1,10 @@
+## 4.4.2 2019-11-18 <dave at tiredofit dot ca>
+
+   ### Reverted
+      - Removed Python Dependencies
+      - Removed PDFtk Dependencies
+
+
 ## 4.4.1 2019-11-18 <dave at tiredofit dot ca>
 
    ### Added

@@ -6,9 +6,7 @@ MAINTAINER Dave Conroy <dave at tiredofit dot ca>
       apk upgrade && \
       apk add \
           git \
-          mysql-client \
-          pdftk \
-          python2 \
+          mariadb-client \
           && \
       \
       rm -rf /var/cache/apk/* && \
