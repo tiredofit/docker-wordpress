@@ -1,3 +1,11 @@
+## 5.0.0 2019-11-19 <dave at tiredofit dot ca>
+
+   ### Added
+      - Add automatic install capabilities - Set environment variables properly and have working install with no input
+      - Add automatic altering of hostname/website URL delivery
+      - Added new variables: ADMIN_EMAIL,ADMIN_PASS,ADMIN_USER,DB_CHARSET,DB_PREFIX,DB_PORT,SITE_LOCALE,SITE_PORT,SITE_TITLE in order to perform an installation.
+
+
 ## 4.4.2 2019-11-18 <dave at tiredofit dot ca>
 
    ### Reverted

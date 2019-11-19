@@ -17,11 +17,20 @@ services:
     - LETSENCRYPT_EMAIL=user@hostname.com
 
     - ZABBIX_HOSTNAME=wordpress-app
-    - ENABLE_HTTPS_REVERSE_PROXY=FALSE
     - DB_HOST=wordpress-db
     - DB_NAME=wordpress
     - DB_USER=wordpress
     - DB_PASS=userpassword
+
+    - ENABLE_HTTPS_REVERSE_PROXY=FALSE
+    
+    ### Enter this in as hostname.domain.tld or localhost if you are doing local development
+    - SITE_URL=localhost
+    - SITE_TITLE=Docker Wordpress
+    ### This is next line is optional and only really used for local development - you would need to expose this port on your system to route to port 80
+    ### If you are running a production system, get rid of thise environment variable entirely.
+    - SITE_PORT=8000
+    - ZABBI
     networks:
       - proxy-tier
     restart: always
@@ -38,7 +47,6 @@ services:
       - DB_PASS=userpassword
 
       - ZABBIX_HOSTNAME=wordpress-db
-
     networks:
       - proxy-tier
     restart: always

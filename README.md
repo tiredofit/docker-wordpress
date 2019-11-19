@@ -1,17 +1,24 @@
-# tiredofit/wordpress
+# hub.docker.com/r/tiredofit/wordpress
+
+[![Build Status](https://img.shields.io/docker/build/tiredofit/wordpress.svg)](https://hub.docker.com/r/tiredofit/wordpress)
+[![Docker Pulls](https://img.shields.io/docker/pulls/tiredofit/wordpress.svg)](https://hub.docker.com/r/tiredofit/wordpress)
+[![Docker Stars](https://img.shields.io/docker/stars/tiredofit/wordpress.svg)](https://hub.docker.com/r/tiredofit/wordpress)
+[![Docker Layers](https://images.microbadger.com/badges/image/tiredofit/wordpress.svg)](https://microbadger.com/images/tiredofit/wordpress)
 
 # Introduction
 
 Dockerfile to build a [Wordpress](https://www.wordpress.org/) container image.
 
-It will automatically download the latest wordpress release upon build, and if you have set correct environment variables, will autocreate a database if you wish.
+It will:
 
-Dockerfile to build a [Nextcloud](https://nextcloud.com) container image.
+* Automatically Download latest version of Wordpress
+* Configure `wp-config.php` for you
+* Install Database
+* Configure the website with basic information
+* If your initial URL changes, automatically rotate URLs accordingly.
+* Includes [WP-CLI](http://wp-cli.org/)
 
-* This Container uses a [customized Alpine Linux base](https://hub.docker.com/r/tiredofit/alpine) which includes [s6 overlay](https://github.com/just-containers/s6-overlay) enabled for PID 1 Init capabilities, [zabbix-agent](https://zabbix.org) based on TRUNK compiled for individual container monitoring, Cron also installed along with other tools (bash,curl, less, logrotate, mariadb-client, nano, vim) for easier management. It also supports sending to external SMTP servers..
-
-* Also includes WP-CLI](http://wp-cli.org/)
-
+* This Container uses a [customized Alpine Linux base](https://hub.docker.com/r/tiredofit/alpine) which includes [s6 overlay](https://github.com/just-containers/s6-overlay) enabled for PID 1 Init capabilities, [zabbix-agent](https://zabbix.org) for individual container monitoring, Cron also installed along with other tools (bash,curl, less, logrotate, mariadb-client, nano, vim) for easier management. It also supports sending to external SMTP servers..
 
 [Changelog](CHANGELOG.md)
 
@@ -33,6 +40,8 @@ Dockerfile to build a [Nextcloud](https://nextcloud.com) container image.
     - [Networking](#networking)
 - [Maintenance](#maintenance)
     - [Shell Access](#shell-access)
+    - [Local Development / Changing Site Name & Ports](#local-development)
+    - [Command Line Interface](#command-line)
    - [References](#references)
 
 # Prerequisites
@@ -83,13 +92,22 @@ Along with the Environment Variables from the [Base image](https://hub.docker.co
 
 | Parameter | Description |
 |-----------|-------------|
-| `ENABLE_HTTPS_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs | 
-| `DB_HOST` | MySQL external container hostname (e.g. wordpress1-db)
-| `DB_NAME` | MySQL database name i.e. (e.g. wordpress)
-| `DB_USER` | MySQL username for database (e.g. wordpress)
-| `DB_PASS` | MySQL password for database (e.g. userpassword)
+| `ADMIN_EMAIL` | Email address for the Administrator - Needed to run   |
+| `ADMIN_USER` | Username for the Administrator - Default `admin`       |
+| `ADMIN_PASS` | Password for the Administrator - Needed to run         |
+| `ENABLE_HTTPS_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs `TRUE` / `FALSE` - Default `TRUE` | 
+| `DB_CHARSET` MariaDB character set for tables - Default `utf8mb4` |
+| `DB_HOST` | MariaDB external container hostname (e.g. wordpress-db) |
+| `DB_NAME` | MariaDB database name i.e. (e.g. wordpress) |
+| `DB_USER` | MariaDB username for database (e.g. wordpress) |
+| `DB_PASS` | MariaDB password for database (e.g. userpassword) |
+| `DB_PREFIX` | MariaDB Prefix for `DB_NAME` - Default `wp_`             |
+| `DEBUG_MODE` | Enable Debug Mode (verbosity) for the container installation/startup and in application - `TRUE` / `FALSE` - Default `FALSE` |
+| `SITE_LOCALE` | What Locale to set site - Default `en_US`             |
+| `SITE_PORT` | What Port does wordpress deliver assets to - Default `80` |
+| `SITE_TITLE` | The title of the Website - Default `Docker Wordpress`  |
+| `SITE_URL` | The Full site URL of the installation e.g. `wordpress.example.com` - Required for Install |
 
-* The DB Variables are unused at this time except to check that your remote DB is available. At some point in time there would have been an automated image to perform a hands-free setup, however I moved onto other things.
 
 ### Networking
 
@@ -97,7 +115,7 @@ The following ports are exposed.
 
 | Port      | Description |
 |-----------|-------------|
-| `80` | HTTP |
+| `80`      | HTTP        |
 
 # Maintenance
 #### Shell Access
@@ -107,6 +125,28 @@ For debugging and maintenance purposes you may want access the containers shell.
 ```bash
 docker exec -it (whatever your container name is e.g. wordpress) bash
 ```
+#### Local Development / Changing Site Name & Ports
+
+Wordpress assets are delivered by means of the initial Site URL, and if you wish to develop locally or on a different port you will experience strange results. If you are performing local development then you would want to setup your environment variables as such:
+
+- `ENABLE_HTTPS_REVERSE_PROXY=FALSE`
+- `SITE_URL=localhost`
+- `SITE_PORT=8000` (or whatever port you are exposing)
+
+When you are ready to deploy to a production URL - you would change it as such:
+- `ENABLE_HTTPS_REVERSE_PROXY=TRUE`
+- `SITE_URL=www.domain.com`
+
+The system will rotate the URLs in the wordpress configuration files and database automatically upon restart of the container.
+
+#### Command Line
+
+If you wish to use the included wp-cli tool to perform maintenance use it as such:
+
+````bash
+cd /www/wordpress
+sudo -u nginx wp-cli <argument>
+````
 
 # References
 
