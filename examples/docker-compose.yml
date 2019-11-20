@@ -29,7 +29,7 @@ services:
     - SITE_TITLE=Docker Wordpress
     ### This is next line is optional and only really used for local development - you would need to expose this port on your system to route to port 80
     ### If you are running a production system, get rid of thise environment variable entirely.
-    - SITE_PORT=8000
+    #- SITE_PORT=8000
     networks:
       - proxy-tier
     restart: always
