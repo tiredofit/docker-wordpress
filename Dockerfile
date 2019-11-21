@@ -1,4 +1,4 @@
-FROM tiredofit/nginx-php-fpm:7.3-latest
+FROM tiredofit/nginx-php-fpm:7.2-latest
 MAINTAINER Dave Conroy <dave at tiredofit dot ca>
 
 ### Dependency Installation
