@@ -1,3 +1,10 @@
+## 5.0.1 2019-12-04 <dave at tiredofit dot ca>
+
+   ### Added
+      - Updated image to support new tiredofit/nginx and tiredofit/nginx-php-fpm base images
+      - Customizable Webroot for Installing
+
+
 ## 5.0.0 2019-11-19 <dave at tiredofit dot ca>
 
    ### Added

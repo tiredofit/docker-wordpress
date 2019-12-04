@@ -1,41 +1,45 @@
-version: '2'
-
+version: '3.7'
 services:
+
   wordpress-app:
     image: tiredofit/wordpress:latest
     container_name: wordpress-app
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:wordpress.example.com
+      - traefik.port=80
+      - traefik.protocol=http
+      - traefik.docker.network=proxy
+      - traefik.backend=nginx-app
     links:
-    - wordpress-db
+      - wordpress-db
     volumes:
-    - ./data/:/www/wordpress
-    - ./logs/:/www/logs
+      - ./data/:/www/wordpress
+      - ./logs/:/www/logs
     environment:
-    - VIRTUAL_HOST=url.hostname.com
-    - VIRTUAL_NETWORK=nginx-proxy
-    - VIRTUAL_PORT=80
-    - LETSENCRYPT_HOST=url.hostname.com
-    - LETSENCRYPT_EMAIL=user@hostname.com
 
-    - ZABBIX_HOSTNAME=wordpress-app
-    - DB_HOST=wordpress-db
-    - DB_NAME=wordpress
-    - DB_USER=wordpress
-    - DB_PASS=userpassword
+      - ZABBIX_HOSTNAME=wordpress-app
+      - DB_HOST=wordpress-db
+      - DB_NAME=wordpress
+      - DB_USER=wordpress
+      - DB_PASS=userpassword
 
-    - ENABLE_HTTPS_REVERSE_PROXY=FALSE
+      - ENABLE_HTTPS_REVERSE_PROXY=FALSE
+      - PHP_ENABLE_MYSQLI=TRUE
 
-    - ADMIN_EMAIL=email@example.com
-    - ADMIN_USER=admin
-    - ADMIN_PASS=password
-        
+      - ADMIN_EMAIL=email@example.com
+      - ADMIN_USER=admin
+      - ADMIN_PASS=password
+      - DEBUG_MODE=TRUE        
     ### Enter this in as hostname.domain.tld or localhost if you are doing local development
-    - SITE_URL=localhost
-    - SITE_TITLE=Docker Wordpress
+      - SITE_URL=localhost
+      - SITE_TITLE=Docker Wordpress
     ### This is next line is optional and only really used for local development - you would need to expose this port on your system to route to port 80
     ### If you are running a production system, get rid of thise environment variable entirely.
-    #- SITE_PORT=8000
+      #- SITE_PORT=8000
     networks:
-      - proxy-tier
+      - proxy
+      - services
     restart: always
 
   wordpress-db:
@@ -51,7 +55,7 @@ services:
 
       - ZABBIX_HOSTNAME=wordpress-db
     networks:
-      - proxy-tier
+      - services
     restart: always
 
   wordpress-db-backup:
@@ -68,15 +72,15 @@ services:
       - DB_USER=wordpress
       - DB_PASS=userpassword
       - DB_DUMP_FREQ=1440
-      #- DB_DUMP_BEGIN=0000
+      - DB_DUMP_BEGIN=0000
       - DB_CLEANUP_TIME=8640
       - COMPRESSION=BZ
     networks:
-      - proxy-tier
+      - services
     restart: always
 
 networks:
-  proxy-tier:
-    external:
-      name: nginx-proxy
-
+  proxy:
+    external: true
+  services:
+    external: true
