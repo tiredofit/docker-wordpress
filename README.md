@@ -45,26 +45,17 @@ It will:
    - [References](#references)
 
 # Prerequisites
+This image assumes that you are using a reverse proxy such as [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) and optionally the [Let's Encrypt Proxy Companion @ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) or [tiredofit/traefik](https://github.com/tiredofit/docker-traefik) in order to serve your pages. However, it will run just fine on it's own if you map appropriate ports.
 
 This image relies on an external MariaDB Server, external SMTP Server, and is meant to be run behind a reverse SSL Proxy such as nginx-proxy.
-
 
 # Installation
 
 Automated builds of the image are available on [Registry](https://hub.docker.rom/r/tiredofit/wordpress) and is the recommended method of installation.
 
 ```bash
-docker pull tiredofit/wordpress:(tag)
+docker pull tiredofit/wordpress
 ```
-
-Available Tags:
-
-`latest` - Most Recent PHP Version with latest Wordpress
-`php-7.3` - PHP 7.3 Variant
-`php-7.2` - PHP 7.2 Variant
-`php-7.1` - PHP 7.1 Variant
-`php-7.0` - PHP 7.0 Variant
-`php-5.6` - PHP 5.6 Variant
 
 # Quick Start
 
