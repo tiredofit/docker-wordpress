@@ -10,7 +10,9 @@ ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
 ### Dependency Installation
 RUN apk update && \
     apk upgrade && \
-    \
+    apk add -t .wordpress-run-deps \
+               python2 \
+               && \
 ### WP-CLI Installation
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
