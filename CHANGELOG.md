@@ -1,3 +1,21 @@
+## 5.0.5 2019-12-18 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Change to support dynamic webserver user/group
+
+
+## 5.0.4 2019-12-11 <dave at tiredofit dot ca>
+
+   ### Added
+      - Add alias for running wp-cli as webserver user (type `wp-cli <argument>`)
+
+
+## 5.0.3 2019-12-05 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Fix extra bracket in nginx.conf/default.conf
+
+
 ## 5.0.2 2019-12-05 <dave at tiredofit dot ca>
 
    ### Added
