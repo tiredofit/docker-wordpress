@@ -46,6 +46,7 @@ DB_PREFIX=${DB_PREFIX:-"wp_"}
 DB_PORT=${DB_PORT:-3306}
 SITE_TITLE=${SITE_TITLE:-"Wordpress Docker Site"}
 SITE_LOCALE=${SITE_LOCALE:-"en_US"}
+FORCE_RESET_PERMISSIONS=${FORCE_RESET_PERMISSIONS:-"true"}
 
 if [ -n "$SITE_PORT" ]; then
     SITE_PORT=":${SITE_PORT}"
@@ -53,8 +54,9 @@ fi
 
 ### Create Directory if doesn't exist
 mkdir -p ${NGINX_WEBROOT}
-chown -R ${NGINX_USER}:${NGINX_GROUP} ${NGINX_WEBROOT}
-
+if [ "${FORCE_RESET_PERMISSIONS}" == "true"  ]; then
+    chown -R ${NGINX_USER}:${NGINX_GROUP} ${NGINX_WEBROOT}
+fi
 ### Make sure that DB is accessible
 while true; do
     mysqlcmd="mysql -u$DB_USER -h$DB_HOST -p$DB_PASS -P$DB_PORT"
@@ -128,7 +130,11 @@ fi
 echo "alias wp-cli='cd ${NGINX_WEBROOT}; sudo -u ${NGINX_USER} wp-cli'" > /root/.bashrc
 
 ### Force Reset Permissions for Security
-silent chown -R ${NGINX_USER}:${NGINX_GROUP} ${NGINX_WEBROOT}
+
+if [ "${FORCE_RESET_PERMISSIONS}" == "true"  ]; then
+    silent chown -R ${NGINX_USER}:${NGINX_GROUP} ${NGINX_WEBROOT}
+fi
+
 echo "** [wordpress] Wordpress Initialization Complete, now starting webserver and PHP engine"
 
 touch /tmp/state/30-init-wordpress
