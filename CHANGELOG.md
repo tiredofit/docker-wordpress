@@ -1,3 +1,8 @@
+## 5.1.0 2019-12-29 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Change to support new tiredofit/alpine base image and new features in tireodofit/nginx
+
 ## 5.0.5 2019-12-18 <dave at tiredofit dot ca>
 
    ### Changed
