@@ -82,7 +82,6 @@ echo "alias wp-cli='cd ${NGINX_WEBROOT}; sudo -u ${NGINX_USER} wp-cli'" > /root/
 if [ "${FORCE_RESET_PERMISSIONS}" == "TRUE"  ]; then
     chown -R ${NGINX_USER}:${NGINX_GROUP} ${NGINX_WEBROOT}
 fi
-
 print_info "Wordpress Initialization Complete, now starting webserver and PHP engine"
 
 liftoff

@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bash
+
+### Set Defaults
+ADMIN_USER=${ADMIN_USER:-"admin"}
+ENABLE_HTTPS_REVERSE_PROXY=${ENABLE_HTTPS_REVERSE_PROXY:-"TRUE"}
+DB_CHARSET=${DB_CHARSET:-"utf8mb4"}
+DB_PREFIX=${DB_PREFIX:-"wp_"}
+DB_PORT=${DB_PORT:-3306}
+SITE_TITLE=${SITE_TITLE:-"Wordpress Docker Site"}
+SITE_LOCALE=${SITE_LOCALE:-"en_US"}
