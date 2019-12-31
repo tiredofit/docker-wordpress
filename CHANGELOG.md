@@ -1,3 +1,8 @@
+## 5.1.1 2019-12-31 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Updated warnings to notices
+
 ## 5.1.0 2019-12-29 <dave at tiredofit dot ca>
 
    ### Changed
