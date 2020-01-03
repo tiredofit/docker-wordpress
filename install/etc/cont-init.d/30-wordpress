@@ -1,19 +1,11 @@
 #!/usr/bin/with-contenv bash
 
-source /assets/functions/*
+for s in /assets/functions/*; do source $s; done
 PROCESS_NAME="wordpress"
 
 sanity_db mariadb
 sanity_var SITE_URL "Site URL"
 
-### Set Defaults
-ADMIN_USER=${ADMIN_USER:-"admin"}
-ENABLE_HTTPS_REVERSE_PROXY=${ENABLE_HTTPS_REVERSE_PROXY:-"TRUE"}
-DB_CHARSET=${DB_CHARSET:-"utf8mb4"}
-DB_PREFIX=${DB_PREFIX:-"wp_"}
-DB_PORT=${DB_PORT:-3306}
-SITE_TITLE=${SITE_TITLE:-"Wordpress Docker Site"}
-SITE_LOCALE=${SITE_LOCALE:-"en_US"}
 
 if [ -n "$SITE_PORT" ]; then
     SITE_PORT=":${SITE_PORT}"
@@ -55,23 +47,28 @@ if [ ! -f ${NGINX_WEBROOT}/wp-load.php ] ; then
    silent rm -rf ${NGINX_WEBROOT}/wp-content/plugins/hello.php
    silent chown -R ${NGINX_USER}:${NGINX_GROUP} ${NGINX_WEBROOT}
 else
+  if [ "$SITE_URL_UPDATE_MODE" = "ALL" ] || [ "$SITE_URL_UPDATE_MODE" = "FILE" ]; then
+     if ! grep -c -q "'WP_HOME'" ${NGINX_WEBROOT}/wp-config.php ; then
+         echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" >> ${NGINX_WEBROOT}/wp-config.php
+     fi
 
-   if ! grep -c -q "'WP_HOME'" ${NGINX_WEBROOT}/wp-config.php ; then
-       echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" >> ${NGINX_WEBROOT}/wp-config.php
-   fi
-
-   if ! grep -c -q "'WP_SITEURL'" ${NGINX_WEBROOT}/wp-config.php ; then
-       echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" >> ${NGINX_WEBROOT}/wp-config.php
-   fi
+     if ! grep -c -q "'WP_SITEURL'" ${NGINX_WEBROOT}/wp-config.php ; then
+         echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" >> ${NGINX_WEBROOT}/wp-config.php
+     fi
+  fi
 
 ### Change URLs if different   
    OLDURL=`grep "WP_HOME" ${NGINX_WEBROOT}/wp-config.php | cut -d \' -f 4`
    if [ "$OLDURL" != "${PROTOCOL}${SITE_URL}${SITE_PORT}" ]; then
-       cd ${NGINX_WEBROOT}
-       print_warn "Modifying wordpress to serve from ${OLDURL} to ${PROTOCOL}${SITE_URL}${SITE_PORT} - Please wait"
-       sed -i "s#define( 'WP_HOME'.*#define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" ${NGINX_WEBROOT}/wp-config.php
-       sed -i "s#define( 'WP_SITEURL'.*#define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" ${NGINX_WEBROOT}/wp-config.php
-       silent sudo -u ${NGINX_USER} wp-cli search-replace '${OLD_URL}' '${PROTOCOL}${SITE_URL}${SITE_PORT}' --skip-columns=guid
+      cd ${NGINX_WEBROOT}
+   if [ "$SITE_URL_UPDATE_MODE" = "ALL" ] || [ "$SITE_URL_UPDATE_MODE" = "FILE" ]; then
+      print_notice "Modifying wordpress to serve from ${OLDURL} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in wp-config.php"
+      sed -i "s#define( 'WP_HOME'.*#define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" ${NGINX_WEBROOT}/wp-config.php
+      sed -i "s#define( 'WP_SITEURL'.*#define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" ${NGINX_WEBROOT}/wp-config.php
+   fi 
+   if [ "$SITE_URL_UPDATE_MODE" = "ALL" ] || [ "$SITE_URL_UPDATE_MODE" = "DB" ]; then
+      print_notice "Modifying wordpress to serve from ${OLDURL} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in database"
+      silent sudo -u ${NGINX_USER} wp-cli search-replace '${OLD_URL}' '${PROTOCOL}${SITE_URL}${SITE_PORT}' --skip-columns=guid
    fi 
 fi
 
