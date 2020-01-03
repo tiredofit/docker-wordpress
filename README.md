@@ -107,6 +107,7 @@ Along with the Environment Variables from the [Base image](https://hub.docker.co
 | `SITE_PORT` | What Port does wordpress deliver assets to - Default `80` |
 | `SITE_TITLE` | The title of the Website - Default `Docker Wordpress`  |
 | `SITE_URL` | The Full site URL of the installation e.g. `wordpress.example.com` - Required for Install |
+| `SITE_URL_UPDATE_MODE` | After first install, perform modifications to wp-config.php and DB if different Site URL `FILE` `DB` `ALL` `NONE` - Default `ALL` |
 
 
 ### Networking
