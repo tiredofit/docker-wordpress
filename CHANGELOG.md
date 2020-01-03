@@ -1,3 +1,9 @@
+## 5.2.0 2020-01-03 <dave at tiredofit dot ca>
+
+   ### Added
+      - Add SITE_URL_UPDATE_MODE environment variable
+
+
 ## 5.1.1 2019-12-31 <dave at tiredofit dot ca>
 
    ### Changed
