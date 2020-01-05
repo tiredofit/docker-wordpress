@@ -1,3 +1,9 @@
+## 5.2.1 2020-01-05 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Patchup for missing if statement in startup routines
+
+
 ## 5.2.0 2020-01-03 <dave at tiredofit dot ca>
 
    ### Added

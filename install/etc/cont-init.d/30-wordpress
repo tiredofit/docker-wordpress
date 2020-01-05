@@ -6,7 +6,6 @@ PROCESS_NAME="wordpress"
 sanity_db mariadb
 sanity_var SITE_URL "Site URL"
 
-
 if [ -n "$SITE_PORT" ]; then
     SITE_PORT=":${SITE_PORT}"
 fi
@@ -16,7 +15,7 @@ mkdir -p ${NGINX_WEBROOT}
 chown ${NGINX_USER}:${NGINX_GROUP} ${NGINX_WEBROOT}
 
 ### Make sure that DB is accessible
-db_ready
+db_ready mariadb
 
 ### Perform Nginx reverse proxy modifications
 if [ "$ENABLE_HTTPS_REVERSE_PROXY" = "TRUE" ] || [ "$ENABLE_HTTPS_REVERSE_PROXY" = "true" ]; then
@@ -56,6 +55,7 @@ else
          echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" >> ${NGINX_WEBROOT}/wp-config.php
      fi
   fi
+fi
 
 ### Change URLs if different   
    OLDURL=`grep "WP_HOME" ${NGINX_WEBROOT}/wp-config.php | cut -d \' -f 4`
