@@ -1,3 +1,9 @@
+## 5.2.1 2020-01-20 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Fix in 30-wordpress container initialization routines
+
+
 ## 5.2.0 2020-01-03 <dave at tiredofit dot ca>
 
    ### Added

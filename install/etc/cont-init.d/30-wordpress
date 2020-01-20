@@ -56,6 +56,7 @@ else
          echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" >> ${NGINX_WEBROOT}/wp-config.php
      fi
   fi
+fi
 
 ### Change URLs if different   
    OLDURL=`grep "WP_HOME" ${NGINX_WEBROOT}/wp-config.php | cut -d \' -f 4`
