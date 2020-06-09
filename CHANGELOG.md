@@ -1,3 +1,9 @@
+## 5.3.0 2020-06-09 <dave at tiredofit dot ca>
+
+   ### Added
+      - Update to support tiredofit/alpine 5.0.0 base image
+
+
 ## 5.2.2 2020-04-21 <dave at tiredofit dot ca>
 
    ### Added
