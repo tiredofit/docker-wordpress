@@ -1,6 +1,5 @@
 #!/usr/bin/with-contenv bash
 
-### Set Defaults
 ADMIN_USER=${ADMIN_USER:-"admin"}
 ENABLE_HTTPS_REVERSE_PROXY=${ENABLE_HTTPS_REVERSE_PROXY:-"TRUE"}
 DB_CHARSET=${DB_CHARSET:-"utf8mb4"}
