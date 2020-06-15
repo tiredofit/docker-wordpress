@@ -1,4 +1,4 @@
-FROM tiredofit/nginx-php-fpm:7.3
+FROM tiredofit/nginx-php-fpm:edge
 MAINTAINER Dave Conroy <dave at tiredofit dot ca>
 
 ### Set Defaults
