@@ -5,7 +5,7 @@
 [![Docker Stars](https://img.shields.io/docker/stars/tiredofit/wordpress.svg)](https://hub.docker.com/r/tiredofit/wordpress)
 [![Docker Layers](https://images.microbadger.com/badges/image/tiredofit/wordpress.svg)](https://microbadger.com/images/tiredofit/wordpress)
 
-# Introduction
+## Introduction
 
 Dockerfile to build a [Wordpress](https://www.wordpress.org/) container image.
 
@@ -22,34 +22,35 @@ It will:
 
 [Changelog](CHANGELOG.md)
 
-# Authors
+## Authors
 
 - [Dave Conroy](dave at tiredofit dot ca)
 
-# Table of Contents
+## Table of Contents
 
 - [Introduction](#introduction)
-    - [Changelog](CHANGELOG.md)
+- [Authors](#authors)
+- [Table of Contents](#table-of-contents)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [Quick Start](#quick-start)
+  - [Quick Start](#quick-start)
 - [Configuration](#configuration)
-    - [Database](#database)
-    - [Data Volumes](#data-volumes)
-    - [Environment Variables](#environmentvariables)   
-    - [Networking](#networking)
+  - [Data-Volumes](#data-volumes)
+  - [Database](#database)
+  - [Environment Variables](#environment-variables)
+  - [Networking](#networking)
 - [Maintenance](#maintenance)
-    - [Shell Access](#shell-access)
-    - [Local Development / Changing Site Name & Ports](#local-development)
-    - [Command Line Interface](#command-line)
-   - [References](#references)
+  - [Shell Access](#shell-access)
+  - [Local Development / Changing Site Name & Ports](#local-development--changing-site-name--ports)
+  - [Command Line](#command-line)
+- [References](#references)
 
-# Prerequisites
+## Prerequisites
 This image assumes that you are using a reverse proxy such as [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) and optionally the [Let's Encrypt Proxy Companion @ https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion) or [tiredofit/traefik](https://github.com/tiredofit/docker-traefik) in order to serve your pages. However, it will run just fine on it's own if you map appropriate ports.
 
 This image relies on an external MariaDB Server, external SMTP Server, and is meant to be run behind a reverse SSL Proxy such as nginx-proxy.
 
-# Installation
+## Installation
 
 Automated builds of the image are available on [Registry](https://hub.docker.rom/r/tiredofit/wordpress) and is the recommended method of installation.
 
@@ -57,14 +58,14 @@ Automated builds of the image are available on [Registry](https://hub.docker.rom
 docker pull tiredofit/wordpress
 ```
 
-# Quick Start
+### Quick Start
 
 * The quickest way to get started is using [docker-compose](https://docs.docker.com/compose/). See the examples folder for a working [docker-compose.yml](examples/docker-compose.yml) that can be modified for development or production use.
 
 * Set various [environment variables](#environment-variables) to understand the capabilities of this image.
 * Map [persistent storage](#data-volumes) for access to configuration and data files for backup.
 
-# Configuration
+## Configuration
 
 ### Data-Volumes
 
@@ -95,7 +96,7 @@ Along with the Environment Variables from the [Base image](https://hub.docker.co
 | `ADMIN_EMAIL` | Email address for the Administrator - Needed to run   |
 | `ADMIN_USER` | Username for the Administrator - Default `admin`       |
 | `ADMIN_PASS` | Password for the Administrator - Needed to run         |
-| `ENABLE_HTTPS_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs `TRUE` / `FALSE` - Default `TRUE` | 
+| `ENABLE_HTTPS_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs `TRUE` / `FALSE` - Default `TRUE` |
 | `DB_CHARSET` MariaDB character set for tables - Default `utf8mb4` |
 | `DB_HOST` | MariaDB external container hostname (e.g. wordpress-db) |
 | `DB_NAME` | MariaDB database name i.e. (e.g. wordpress) |
@@ -118,15 +119,15 @@ The following ports are exposed.
 |-----------|-------------|
 | `80`      | HTTP        |
 
-# Maintenance
-#### Shell Access
+## Maintenance
+### Shell Access
 
-For debugging and maintenance purposes you may want access the containers shell. 
+For debugging and maintenance purposes you may want access the containers shell.
 
 ```bash
 docker exec -it (whatever your container name is e.g. wordpress) bash
 ```
-#### Local Development / Changing Site Name & Ports
+### Local Development / Changing Site Name & Ports
 
 Wordpress assets are delivered by means of the initial Site URL, and if you wish to develop locally or on a different port you will experience strange results. If you are performing local development then you would want to setup your environment variables as such:
 
@@ -140,7 +141,7 @@ When you are ready to deploy to a production URL - you would change it as such:
 
 The system will rotate the URLs in the wordpress configuration files and database automatically upon restart of the container.
 
-#### Command Line
+### Command Line
 
 If you wish to use the included wp-cli tool to perform maintenance use it as such:
 
@@ -149,7 +150,7 @@ cd /www/wordpress
 sudo -u nginx wp-cli <argument>
 ````
 
-# References
+## References
 
 * https://www.wordpress.org
 * http://www.wp-cli.org

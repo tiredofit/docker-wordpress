@@ -1,5 +1,5 @@
-FROM tiredofit/nginx-php-fpm:edge
-MAINTAINER Dave Conroy <dave at tiredofit dot ca>
+FROM tiredofit/nginx-php-fpm:7.4-latest
+LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
 
 ### Set Defaults
 ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
