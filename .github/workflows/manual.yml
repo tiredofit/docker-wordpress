@@ -10,7 +10,7 @@ on:
         required: false
 
 jobs:
-  php8.0:
+  php80:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -112,7 +112,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.4:
+  php74:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -215,7 +215,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.3:
+  php73:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -318,7 +318,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.2:
+  php72:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -421,7 +421,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.1:
+  php71:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -524,7 +524,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.0:
+  php70:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -627,7 +627,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php5.6:
+  php56:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

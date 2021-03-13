@@ -8,8 +8,7 @@ on:
     paths:
     - '**'
     - '!README.md'
-jobs:
-  php8.0:
+  php80:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,7 +18,6 @@ jobs:
         id: prep
         run: |
           DOCKER_IMAGE=${GITHUB_REPOSITORY/docker-/}
-          set -x
           if [[ $GITHUB_REF == refs/heads/* ]]; then
              if [[ $GITHUB_REF == refs/heads/*/* ]] ; then
                BRANCH="${DOCKER_IMAGE}:$(echo $GITHUB_REF | sed "s|refs/heads/||g" | sed "s|/|-|g")"
@@ -112,7 +110,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.4:
+  php74:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -132,7 +130,7 @@ jobs:
 
             case ${BRANCH} in
               "main" | "master" )
-                  BRANCHTAG="${DOCKER_IMAGE}:php7.4,${DOCKER_IMAGE}:latest"
+                  BRANCHTAG="${DOCKER_IMAGE}:php7.4"
                 ;;
               "develop" )
                   BRANCHTAG="${DOCKER_IMAGE}:develop"
@@ -215,7 +213,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.3:
+  php73:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -235,7 +233,7 @@ jobs:
 
             case ${BRANCH} in
               "main" | "master" )
-                  BRANCHTAG="${DOCKER_IMAGE}:php7.3,${DOCKER_IMAGE}:latest"
+                  BRANCHTAG="${DOCKER_IMAGE}:php7.3"
                 ;;
               "develop" )
                   BRANCHTAG="${DOCKER_IMAGE}:develop"
@@ -318,7 +316,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.2:
+  php72:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -338,7 +336,7 @@ jobs:
 
             case ${BRANCH} in
               "main" | "master" )
-                  BRANCHTAG="${DOCKER_IMAGE}:php7.2,${DOCKER_IMAGE}:latest"
+                  BRANCHTAG="${DOCKER_IMAGE}:php7.2"
                 ;;
               "develop" )
                   BRANCHTAG="${DOCKER_IMAGE}:develop"
@@ -421,7 +419,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.1:
+  php71:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -441,7 +439,7 @@ jobs:
 
             case ${BRANCH} in
               "main" | "master" )
-                  BRANCHTAG="${DOCKER_IMAGE}:php7.1,${DOCKER_IMAGE}:latest"
+                  BRANCHTAG="${DOCKER_IMAGE}:php7.1"
                 ;;
               "develop" )
                   BRANCHTAG="${DOCKER_IMAGE}:develop"
@@ -524,7 +522,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php7.0:
+  php70:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -544,7 +542,7 @@ jobs:
 
             case ${BRANCH} in
               "main" | "master" )
-                  BRANCHTAG="${DOCKER_IMAGE}:php7.0,${DOCKER_IMAGE}:latest"
+                  BRANCHTAG="${DOCKER_IMAGE}:php7.0"
                 ;;
               "develop" )
                   BRANCHTAG="${DOCKER_IMAGE}:develop"
@@ -627,7 +625,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64
           push: true
           tags: ${{ steps.prep.outputs.tags }}
-  php5.6:
+  php56:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -647,7 +645,7 @@ jobs:
 
             case ${BRANCH} in
               "main" | "master" )
-                  BRANCHTAG="${DOCKER_IMAGE}:php5.6,${DOCKER_IMAGE}:latest"
+                  BRANCHTAG="${DOCKER_IMAGE}:php5.6"
                 ;;
               "develop" )
                   BRANCHTAG="${DOCKER_IMAGE}:develop"
