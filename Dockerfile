@@ -1,4 +1,4 @@
-FROM tiredofit/nginx-php-fpm:8.0-latest
+FROM tiredofit/nginx-php-fpm:8.0-alpine
 LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
 
 ### Set Defaults
