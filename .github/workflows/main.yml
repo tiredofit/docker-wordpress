@@ -1,13 +1,15 @@
-# This is a basic workflow that is manually triggered
+### Application Level Image CI
+### Dave Conroy <dave at tiredofit dot ca>
 
-name: manual workflow
+name: 'build'
 
 on:
-  workflow_dispatch:
-    inputs:
-      Manual Build:
-        description: 'Manual Build'
-        required: false
+  schedule:
+    - cron: 1 6 * * 6
+  push:
+    paths:
+    - '**'
+    - '!README.md'
 jobs:
   php8_0:
     env:
