@@ -1,5 +1,5 @@
-FROM tiredofit/nginx-php-fpm:8.0-alpine
-LABEL maintainer="Dave Conroy (dave at tiredofit dot ca)"
+FROM tiredofit/nginx-php-fpm:alpine-8.0
+LABEL maintainer="Dave Conroy (github.com/tiredofit)"
 
 ### Set Defaults
 ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
