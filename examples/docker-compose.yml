@@ -18,7 +18,7 @@ services:
       - ./logs/:/www/logs
     environment:
 
-      - ZABBIX_HOSTNAME=wordpress-app
+      - CONTAINER_NAME=wordpress-app
       - DB_HOST=wordpress-db
       - DB_NAME=wordpress
       - DB_USER=wordpress
@@ -53,7 +53,7 @@ services:
       - DB_USER=wordpress
       - DB_PASS=userpassword
 
-      - ZABBIX_HOSTNAME=wordpress-db
+      - CONTAINER_NAME=wordpress-db
     networks:
       - services
     restart: always

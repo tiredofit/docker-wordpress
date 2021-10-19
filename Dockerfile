@@ -1,11 +1,11 @@
-FROM tiredofit/nginx-php-fpm:alpine-8.0
+FROM docker.io/tiredofit/nginx-php-fpm:alpine-8.0
 LABEL maintainer="Dave Conroy (github.com/tiredofit)"
 
 ### Set Defaults
 ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
     PHP_ENABLE_MYSQLI=TRUE \
     NGINX_WEBROOT="/www/wordpress" \
-    ZABBIX_HOSTNAME=wordpress-app
+    CONTAINER_NAME=wordpress-app
 
 ### Dependency Installation
 RUN apk update && \

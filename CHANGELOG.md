@@ -1,3 +1,10 @@
+## 5.3.1 2021-10-19 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Change to wp-cli alias to restore previous directory location after execution
+      - Minor shellcheck cleanup
+
+
 ## 5.3.0 2020-06-09 <dave at tiredofit dot ca>
 
    ### Added
