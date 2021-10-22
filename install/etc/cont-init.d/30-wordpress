@@ -77,8 +77,8 @@ fi
 cat >> /root/.bashrc <<EOF
 function wp-cli() {
       export oldpwd="\$(pwd)"
-      cd /www/${NGINX_WEBROOT}
-      sudo -u ${NGINX_USER} wp-cli "\$@"
+      cd ${NGINX_WEBROOT}
+      sudo -u ${NGINX_USER} /usr/bin/wp-cli "\$@"
       cd "\${oldpwd}"
 }
 EOF

@@ -1,3 +1,9 @@
+## 5.3.2 2021-10-22 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Fix for 5.3.1
+
+
 ## 5.3.1 2021-10-19 <dave at tiredofit dot ca>
 
    ### Changed
