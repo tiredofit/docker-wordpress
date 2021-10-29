@@ -5,7 +5,7 @@ name: 'build'
 
 on:
   schedule:
-    - cron: 1 6 * * 6
+    - cron: 1 10 * * 6
   push:
     paths:
     - '**'
