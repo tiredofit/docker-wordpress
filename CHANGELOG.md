@@ -1,3 +1,9 @@
+## 5.3.3 2021-12-07 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Rework Zabbix Template auto register
+
+
 ## 5.3.2 2021-10-22 <dave at tiredofit dot ca>
 
    ### Changed
