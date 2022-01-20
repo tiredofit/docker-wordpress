@@ -1,3 +1,9 @@
+## 5.3.4 2022-01-20 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Fix for SITE_URL changing not functioning correctly
+
+
 ## 5.3.3 2021-12-07 <dave at tiredofit dot ca>
 
    ### Changed

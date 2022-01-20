@@ -69,7 +69,7 @@ if [ "$OLDURL" != "${PROTOCOL}${SITE_URL}${SITE_PORT}" ]; then
   fi
   if [ "${SITE_URL_UPDATE_MODE}" = "ALL" ] || [ "${SITE_URL_UPDATE_MODE}" = "DB" ]; then
     print_notice "Modifying wordpress to serve from ${OLDURL} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in database"
-    silent sudo -u ${NGINX_USER} wp-cli search-replace "${OLD_URL}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid
+    silent sudo -u ${NGINX_USER} wp-cli search-replace "${OLDURL}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid
   fi
 fi
 
