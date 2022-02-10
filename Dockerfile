@@ -5,7 +5,9 @@ LABEL maintainer="Dave Conroy (github.com/tiredofit)"
 ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
     PHP_ENABLE_MYSQLI=TRUE \
     NGINX_WEBROOT="/www/wordpress" \
-    CONTAINER_NAME=wordpress-app
+    IMAGE_NAME="tiredofit/wordpress" \
+    IMAGE_REPO_URL="https://github.com/tiredofit/docker-wordpress/"
+
 
 ### Dependency Installation
 RUN apk update && \

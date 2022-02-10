@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bash
+#!/command/with-contenv bash
 
 ### Set Defaults
 ADMIN_USER=${ADMIN_USER:-"admin"}
