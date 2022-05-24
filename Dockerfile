@@ -9,12 +9,8 @@ ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
     IMAGE_REPO_URL="https://github.com/tiredofit/docker-wordpress/"
 
 
-### Dependency Installation
 RUN apk update && \
     apk upgrade && \
-    apk add -t .wordpress-run-deps \
-               python2 \
-               && \
     \
 ### WP-CLI Installation
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
@@ -22,7 +18,6 @@ RUN apk update && \
     mv wp-cli.phar /usr/bin/wp-cli && \
     chown nginx:www-data /usr/bin/wp-cli && \
     \
-### Cleanup
     rm -rf /var/cache/apk/*
 
 ### Add Files

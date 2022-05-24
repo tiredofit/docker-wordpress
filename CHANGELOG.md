@@ -1,3 +1,9 @@
+## 5.3.6 2022-05-24 <dave at tiredofit dot ca>
+
+   ### Added
+      - Introduce PHP 8.1 builds
+
+
 ## 5.3.5 2022-02-10 <dave at tiredofit dot ca>
 
    ### Changed
