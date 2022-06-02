@@ -62,6 +62,7 @@ The following image tags are available along with their tagged release based on 
 
 | PHP version | OS     | Tag        |
 | ----------- | ------ | ---------- |
+| 8.0.x       | Alpine | `:php-8.1` |
 | 8.0.x       | Alpine | `:php-8.0` |
 | 7.4.x       | Alpine | `:php-7.4` |
 | 7.3.x       | Alpine | `:php-7.3` |
@@ -71,7 +72,7 @@ The following image tags are available along with their tagged release based on 
 | 5.6.x       | Alpine | `:php5.6`  |
 
 #### Multi Architecture
-Images are built primarily for `amd64` architecture, and may also include builds for `arm/v6`, `arm/v7`, `arm64` and others. These variants are all unsupported. Consider [sponsoring](https://github.com/sponsors/tiredofit) my work so that I can work with various hardware. To see if this image supports multiple architecures, type `docker manifest (image):(tag)`
+Images are built primarily for `amd64` architecture, and may also include builds for `arm/v7`, `arm64` and others. These variants are all unsupported. Consider [sponsoring](https://github.com/sponsors/tiredofit) my work so that I can work with various hardware. To see if this image supports multiple architecures, type `docker manifest (image):(tag)`
 
 
 ## Configuration
