@@ -5,6 +5,7 @@ LABEL maintainer="Dave Conroy (github.com/tiredofit)"
 ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
     PHP_ENABLE_MYSQLI=TRUE \
     NGINX_WEBROOT="/www/wordpress" \
+    NGINX_SITE_ENABLED="wordpress" \
     IMAGE_NAME="tiredofit/wordpress" \
     IMAGE_REPO_URL="https://github.com/tiredofit/docker-wordpress/"
 

@@ -84,7 +84,7 @@ function wp-cli() {
 EOF
 
 ### Force Reset Permissions for Security
-if [ "${FORCE_RESET_PERMISSIONS}" == "TRUE"  ]; then
+if [ "${NGINX_FORCE_RESET_PERMISSIONS}" == "TRUE"  ]; then
     chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
 fi
 print_info "Wordpress Initialization Complete, now starting webserver and PHP engine"
