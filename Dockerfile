@@ -13,11 +13,11 @@ ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
 RUN apk update && \
     apk upgrade && \
     \
-### WP-CLI Installation
+    ### WP-CLI Installation
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x wp-cli.phar && \
     mv wp-cli.phar /usr/bin/wp-cli && \
-    chown nginx:www-data /usr/bin/wp-cli && \
+    chown ${NGINX_USER}:${NGINX_GROUP} /usr/bin/wp-cli && \
     \
     rm -rf /var/cache/apk/*
 

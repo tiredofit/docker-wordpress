@@ -1,3 +1,11 @@
+## 5.3.8 2022-10-05 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Add some quotes around variables
+      - Fix tab spacing
+      - Update legacy nginx configuration
+
+
 ## 5.3.7 2022-06-23 <dave at tiredofit dot ca>
 
    ### Added
