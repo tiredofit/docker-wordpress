@@ -1,0 +1,80 @@
+#!/command/with-contenv bash
+
+bootstrap_filesystem() {
+    mkdir -p "${NGINX_WEBROOT}"
+    chown "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
+}
+
+configure_nginx() {
+    ### Perform Nginx reverse proxy modifications
+    if var_true "${ENABLE_HTTPS_REVERSE_PROXY}" ; then
+        sed -i "s|fastcgi_param  HTTPS '.*';|fastcgi_param  HTTPS 'on';|g" >> /etc/nginx/fastcgi_params
+        PROTOCOL="https://"
+    else
+        print_warn "Disabling Nginx Reverse Proxy HTTPS Termination Support"
+        sed -i "s|fastcgi_param  HTTPS '.*';|fastcgi_param  HTTPS 'off';|g" >> /etc/nginx/fastcgi_params
+        PROTOCOL="http://"
+    fi
+}
+
+create_bash_alias() {
+    cat >> /root/.bashrc <<EOF
+function wp-cli() {
+      export oldpwd="\$(pwd)"
+      cd ${NGINX_WEBROOT}
+      sudo -u ${NGINX_USER} /usr/bin/wp-cli "\$@"
+      cd "\${oldpwd}"
+}
+EOF
+}
+
+finalize_permissions() {
+    if var_true "${NGINX_FORCE_RESET_PERMISSIONS}" ] ; then
+        chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
+    fi
+}
+
+install_wordpress() {
+    if [ ! -f "${NGINX_WEBROOT}"/wp-load.php ] ; then
+        sanity_var ADMIN_EMAIL "Admin Email"
+        sanity_var ADMIN_PASS "Admin Password"
+        print_warn "Wordpress Installation not found, Downloading and setting up - Please wait 1-3 minutes.."
+        cd "${NGINX_WEBROOT}"
+        silent sudo -u "${NGINX_USER}" wp-cli core download --locale=${SITE_LOCALE}
+        silent sudo -u "${NGINX_USER}" wp-cli core config --dbhost=${DB_HOST} --dbname=${DB_NAME} --dbprefix=${DB_PREFIX} --dbuser=${DB_USER} --dbpass=${DB_PASS} --dbcharset=${DB_CHARSET}
+        silent sudo -u "${NGINX_USER}" wp-cli core install --url=${PROTOCOL}${SITE_URL}${SITE_PORT} --title="${SITE_TITLE}" --admin_user=${ADMIN_USER} --admin_password=${ADMIN_PASS} --admin_email=${ADMIN_EMAIL} --skip-email
+        sudo -u "${NGINX_USER}" chmod 644 wp-config.php
+
+        ### Add URL information to allow for switching host/domainnames easily
+        echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        silent rm -rf "${NGINX_WEBROOT}"/readme.html
+        silent rm -rf "${NGINX_WEBROOT}"/license.txt
+        silent rm -rf "${NGINX_WEBROOT}"/wp-content/plugins/hello.php
+        silent chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
+    else
+        if ! grep -c -q "'WP_HOME'" "${NGINX_WEBROOT}"/wp-config.php ; then
+            echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        fi
+
+        if ! grep -c -q "'WP_SITEURL'" "${NGINX_WEBROOT}"/wp-config.php ; then
+            echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        fi
+    fi
+}
+
+update_url_configuration() {
+    ### Change URLs if different
+    wpoldurl=$(grep "WP_HOME" "${NGINX_WEBROOT}"/wp-config.php | cut -d \' -f 4)
+    if [ "$wpoldurl" != "${PROTOCOL}${SITE_URL}${SITE_PORT}" ]; then
+        if [ "${SITE_URL_UPDATE_MODE,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "file" ]; then
+            print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in wp-config.php"
+            sed -i "s#define( 'WP_HOME'.*#define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" "${NGINX_WEBROOT}"/wp-config.php
+            sed -i "s#define( 'WP_SITEURL'.*#define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" "${NGINX_WEBROOT}"/wp-config.php
+        fi
+        if [ "${SITE_URL_UPDATE_MODE,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "db" ]; then
+            print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in database"
+            silent sudo -u "${NGINX_USER}" wp-cli search-replace "${wpoldurl}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid
+        fi
+    fi
+}

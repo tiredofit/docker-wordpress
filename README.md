@@ -39,7 +39,7 @@ This will build a Docker Image for [Wordpress](https://www.wordpress.org/). A we
   - [Networking](#networking)
 - [Maintenance](#maintenance)
   - [Shell Access](#shell-access)
-  - [Local Development / Changing Site Name & Ports](#local-development--changing-site-name--ports)
+  - [Local Development / Changing Site Name \& Ports](#local-development--changing-site-name--ports)
   - [Command Line](#command-line)
 - [Support](#support)
   - [Usage](#usage)
@@ -73,7 +73,7 @@ The following image tags are available along with their tagged release based on 
 
 | PHP version | OS     | Tag        |
 | ----------- | ------ | ---------- |
-| 8.0.x       | Alpine | `:php-8.1` |
+| 8.1.x       | Alpine | `:php-8.1` |
 | 8.0.x       | Alpine | `:php-8.0` |
 | 7.4.x       | Alpine | `:php-7.4` |
 | 7.3.x       | Alpine | `:php-7.3` |

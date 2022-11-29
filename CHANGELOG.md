@@ -1,3 +1,11 @@
+## 5.4.0 2022-11-29 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Move routines to seperate functions
+      - Optimize downloading wp-cli
+      - Rework Dockerfile for quicker and better CI capabilities
+
+
 ## 5.3.8 2022-10-05 <dave at tiredofit dot ca>
 
    ### Changed

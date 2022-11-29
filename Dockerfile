@@ -1,7 +1,9 @@
-FROM docker.io/tiredofit/nginx-php-fpm:alpine-8.0
+ARG PHP_BASE=8.0
+ARG DISTRO="alpine"
+
+FROM docker.io/tiredofit/nginx-php-fpm:${PHP_BASE}-${DISTRO}
 LABEL maintainer="Dave Conroy (github.com/tiredofit)"
 
-### Set Defaults
 ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
     PHP_ENABLE_MYSQLI=TRUE \
     NGINX_WEBROOT="/www/wordpress" \
@@ -14,12 +16,8 @@ RUN apk update && \
     apk upgrade && \
     \
     ### WP-CLI Installation
-    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-    chmod +x wp-cli.phar && \
-    mv wp-cli.phar /usr/bin/wp-cli && \
-    chown ${NGINX_USER}:${NGINX_GROUP} /usr/bin/wp-cli && \
-    \
+    curl -o /usr/bin/wp-cli https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x /usr/bin/wp-cli && \
     rm -rf /var/cache/apk/*
 
-### Add Files
-ADD install/ /
+COPY install/ /
