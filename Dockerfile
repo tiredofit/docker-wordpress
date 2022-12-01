@@ -11,13 +11,13 @@ ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
     IMAGE_NAME="tiredofit/wordpress" \
     IMAGE_REPO_URL="https://github.com/tiredofit/docker-wordpress/"
 
-
-RUN apk update && \
-    apk upgrade && \
+RUN source /assets/functions/00-container && \
+    set -x && \
+    package update && \
+    package upgrade && \
     \
-    ### WP-CLI Installation
     curl -o /usr/bin/wp-cli https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/bin/wp-cli && \
-    rm -rf /var/cache/apk/*
+    package cleanup
 
 COPY install/ /
