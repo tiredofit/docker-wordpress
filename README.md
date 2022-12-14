@@ -73,6 +73,7 @@ The following image tags are available along with their tagged release based on 
 
 | PHP version | OS     | Tag        |
 | ----------- | ------ | ---------- |
+| 8.2.x       | Alpine | `:php-8.2` |
 | 8.1.x       | Alpine | `:php-8.1` |
 | 8.0.x       | Alpine | `:php-8.0` |
 | 7.4.x       | Alpine | `:php-7.4` |
