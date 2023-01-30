@@ -1,7 +1,7 @@
 # github.com/tiredofit/docker-wordpress
 
 [![GitHub release](https://img.shields.io/github/v/tag/tiredofit/docker-wordpress?style=flat-square)](https://github.com/tiredofit/docker-wordpress/releases/latest)
-[![Build Status](https://img.shields.io/github/workflow/status/tiredofit/docker-wordpress/build?style=flat-square)](https://github.com/tiredofit/docker-wordpress/actions?query=workflow%3Abuild)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/tiredofit/docker-wordpress/main.yml?branch=main&style=flat-square)](https://github.com/tiredofit/docker-wordpress/actions)
 [![Docker Stars](https://img.shields.io/docker/stars/tiredofit/wordpress.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/tiredofit/wordpress/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/tiredofit/wordpress.svg?style=flat-square&logo=docker)](https://hub.docker.com/r/tiredofit/wordpress/)
 [![Become a sponsor](https://img.shields.io/badge/sponsor-tiredofit-181717.svg?logo=github&style=flat-square)](https://github.com/sponsors/tiredofit)
