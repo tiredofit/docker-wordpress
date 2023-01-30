@@ -72,7 +72,7 @@ docker pull docker.io/tiredofdit/wordpress:(imagetag)
 Builds of the image are also available on the [Github Container Registry](https://github.com/tiredofit/docker-wordpress/pkgs/container/docker-wordpress) 
  
 ```
-docker pull ghcr.io/tiredofit/docker-wordpress/pkgs/container/docker-wordpress):(imagetag)
+docker pull ghcr.io/tiredofit/docker-wordpress:(imagetag)
 ``` 
 
 The following image tags are available along with their tagged release based on what's written in the [Changelog](CHANGELOG.md):
