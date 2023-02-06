@@ -1,3 +1,9 @@
+## 5.4.3 2023-02-06 <radarsymphony@github>
+
+   ### Changed
+      - Fix SITE_URL_UPDATE_MODE parameters
+
+
 ## 5.4.2 2022-12-14 <dave at tiredofit dot ca>
 
    ### Added
