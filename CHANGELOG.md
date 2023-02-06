@@ -1,3 +1,9 @@
+## 5.4.5 2023-02-06 <radarsymphony@github>
+
+   ### Changed
+      - Add safety net when executing wp-cli search and replace to scope specifically to NGINX_WEBROOT
+
+
 ## 5.4.4 2023-02-06 <radarsymphony@github>
 
    ### Changed
