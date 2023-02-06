@@ -1,3 +1,9 @@
+## 5.4.4 2023-02-06 <radarsymphony@github>
+
+   ### Changed
+      - Fix for ENABLE_HTTPS_REVERSE_PROXY variable
+
+
 ## 5.4.3 2023-02-06 <radarsymphony@github>
 
    ### Changed
