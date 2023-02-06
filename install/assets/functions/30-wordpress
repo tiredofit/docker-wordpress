@@ -67,12 +67,12 @@ update_url_configuration() {
     ### Change URLs if different
     wpoldurl=$(grep "WP_HOME" "${NGINX_WEBROOT}"/wp-config.php | cut -d \' -f 4)
     if [ "$wpoldurl" != "${PROTOCOL}${SITE_URL}${SITE_PORT}" ]; then
-        if [ "${SITE_URL_UPDATE_MODE,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "file" ]; then
+        if [ "${SITE_URL_UPDATE_MODE,,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "file" ]; then
             print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in wp-config.php"
             sed -i "s#define( 'WP_HOME'.*#define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" "${NGINX_WEBROOT}"/wp-config.php
             sed -i "s#define( 'WP_SITEURL'.*#define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" "${NGINX_WEBROOT}"/wp-config.php
         fi
-        if [ "${SITE_URL_UPDATE_MODE,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "db" ]; then
+        if [ "${SITE_URL_UPDATE_MODE,,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "db" ]; then
             print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in database"
             silent sudo -u "${NGINX_USER}" wp-cli search-replace "${wpoldurl}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid
         fi
