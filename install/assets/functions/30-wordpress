@@ -74,7 +74,7 @@ update_url_configuration() {
         fi
         if [ "${SITE_URL_UPDATE_MODE,,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "db" ]; then
             print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in database"
-            silent sudo -u "${NGINX_USER}" wp-cli search-replace "${wpoldurl}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid
+            silent sudo -u "${NGINX_USER}" wp-cli search-replace "${wpoldurl}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid --path="${NGINX_WEBROOT}"
         fi
     fi
 }
