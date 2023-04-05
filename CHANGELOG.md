@@ -1,3 +1,9 @@
+## 5.4.6 2023-04-05 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Alter Dockerfile to solve some build issues
+
+
 ## 5.4.5 2023-02-06 <radarsymphony@github>
 
    ### Changed

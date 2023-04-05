@@ -15,7 +15,6 @@ RUN source /assets/functions/00-container && \
     set -x && \
     package update && \
     package upgrade && \
-    \
     curl -o /usr/bin/wp-cli https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
     chmod +x /usr/bin/wp-cli && \
     package cleanup
