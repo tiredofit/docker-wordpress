@@ -14,7 +14,7 @@ This will build a Docker Image for [Wordpress](https://www.wordpress.org/). A we
 * Configure `wp-config.php` for you
 * Install Database
 * Configure the website with basic information
-* Automatically rotate URLs accordingly.
+* Automatically rotate URLs on subsequent boots if they have changed
 * Includes [WP-CLI](http://wp-cli.org/)
 
 ## Maintainer
@@ -69,11 +69,11 @@ Builds of the image are available on [Docker Hub](https://hub.docker.com/r/tired
 docker pull docker.io/tiredofdit/wordpress:(imagetag)
 ```
 
-Builds of the image are also available on the [Github Container Registry](https://github.com/tiredofit/docker-wordpress/pkgs/container/docker-wordpress) 
- 
+Builds of the image are also available on the [Github Container Registry](https://github.com/tiredofit/docker-wordpress/pkgs/container/docker-wordpress)
+
 ```
 docker pull ghcr.io/tiredofit/docker-wordpress:(imagetag)
-``` 
+```
 
 The following image tags are available along with their tagged release based on what's written in the [Changelog](CHANGELOG.md):
 
@@ -135,8 +135,10 @@ Be sure to view the following repositories to understand all the customizable op
 | `DB_NAME`                    | MariaDB database name i.e. (e.g. wordpress)                                                                       |                    |
 | `DB_USER`                    | MariaDB username for database (e.g. wordpress)                                                                    |                    |
 | `DB_PASS`                    | MariaDB password for database (e.g. userpassword)                                                                 |                    |
+| `DB_PORT`                    | MariaDB port for database                                                                                         | `3306`             |
 | `DB_PREFIX`                  | MariaDB Prefix for `DB_NAME`                                                                                      | `wp_`              |
 | `DEBUG_MODE`                 | Enable Debug Mode (verbosity) for the container installation/startup and in application - `TRUE` / `FALSE`        | `FALSE`            |
+| `ROTATE_KEYS`                | Rotate Salts and Keys on subsequent reboots `TRUE` / `FALSE` | `FALSE` |
 | `SITE_LOCALE`                | What Locale to set site                                                                                           | `en_US`            |
 | `SITE_PORT`                  | What Port does wordpress deliver assets to                                                                        | `80`               |
 | `SITE_TITLE`                 | The title of the Website                                                                                          | `Docker Wordpress` |

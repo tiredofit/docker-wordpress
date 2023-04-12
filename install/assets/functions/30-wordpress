@@ -29,7 +29,7 @@ EOF
 }
 
 finalize_permissions() {
-    if var_true "${NGINX_FORCE_RESET_PERMISSIONS}" ] ; then
+    if var_true "${NGINX_FORCE_RESET_PERMISSIONS}" ; then
         chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
     fi
 }
@@ -40,9 +40,9 @@ install_wordpress() {
         sanity_var ADMIN_PASS "Admin Password"
         print_warn "Wordpress Installation not found, Downloading and setting up - Please wait 1-3 minutes.."
         cd "${NGINX_WEBROOT}"
-        silent sudo -u "${NGINX_USER}" wp-cli core download --locale=${SITE_LOCALE}
-        silent sudo -u "${NGINX_USER}" wp-cli core config --dbhost=${DB_HOST} --dbname=${DB_NAME} --dbprefix=${DB_PREFIX} --dbuser=${DB_USER} --dbpass=${DB_PASS} --dbcharset=${DB_CHARSET}
-        silent sudo -u "${NGINX_USER}" wp-cli core install --url=${PROTOCOL}${SITE_URL}${SITE_PORT} --title="${SITE_TITLE}" --admin_user=${ADMIN_USER} --admin_password=${ADMIN_PASS} --admin_email=${ADMIN_EMAIL} --skip-email
+        silent sudo -u "${NGINX_USER}" wp-cli core download --locale="${SITE_LOCALE}"
+        silent sudo -u "${NGINX_USER}" wp-cli core config --dbhost="${DB_HOST}":"${DB_PORT}" --dbname="${DB_NAME}" --dbprefix="${DB_PREFIX}" --dbuser="${DB_USER}" --dbpass="${DB_PASS}" --dbcharset="${DB_CHARSET}"
+        silent sudo -u "${NGINX_USER}" wp-cli core install --url="${PROTOCOL}""${SITE_URL}""${SITE_PORT}" --title="${SITE_TITLE}" --admin_user="${ADMIN_USER}" --admin_password="${ADMIN_PASS}" --admin_email="${ADMIN_EMAIL}" --skip-email
         sudo -u "${NGINX_USER}" chmod 644 wp-config.php
 
         ### Add URL information to allow for switching host/domainnames easily
@@ -60,21 +60,33 @@ install_wordpress() {
         if ! grep -c -q "'WP_SITEURL'" "${NGINX_WEBROOT}"/wp-config.php ; then
             echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
         fi
-    fi
-}
 
-update_url_configuration() {
-    ### Change URLs if different
-    wpoldurl=$(grep "WP_HOME" "${NGINX_WEBROOT}"/wp-config.php | cut -d \' -f 4)
-    if [ "$wpoldurl" != "${PROTOCOL}${SITE_URL}${SITE_PORT}" ]; then
-        if [ "${SITE_URL_UPDATE_MODE,,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "file" ]; then
-            print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in wp-config.php"
-            sed -i "s#define( 'WP_HOME'.*#define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" "${NGINX_WEBROOT}"/wp-config.php
-            sed -i "s#define( 'WP_SITEURL'.*#define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );#g" "${NGINX_WEBROOT}"/wp-config.php
+        sed -i \
+                    -e "s|define( 'DB_HOST', '.*' );|define( 'DB_HOST', '${DB_HOST}:${DB_PORT}' );|g" \
+                    -e "s|define( 'DB_NAME', '.*' );|define( 'DB_NAME', '${DB_NAME}' );|g" \
+                    -e "s|define( 'DB_USER', '.*' );|define( 'DB_USER', '${DB_USER}' );|g" \
+                    -e "s|define( 'DB_PASSWORD', '.*' );|define( 'DB_PASSWORD', '${DB_PASS}' );|g" \
+                    -e "s|define( 'DB_CHARSET', '.*' );|define( 'DB_CHARSET', '${DB_CHARSET}' );|g"
+                "${NGINX_WEBROOT}"/wp-config.php
+
+        if var_true "${ROTATE_KEYS}" ; then
+            print_notice "Rotating Secrets and Keys"
+            silent sudo -u "${NGINX_USER}" wp-cli config shuffle-salts --config-file="${NGINX_WEBROOT}"/wp-config.php
         fi
-        if [ "${SITE_URL_UPDATE_MODE,,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "db" ]; then
-            print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in database"
-            silent sudo -u "${NGINX_USER}" wp-cli search-replace "${wpoldurl}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid --path="${NGINX_WEBROOT}"
+
+        wpoldurl=$(grep "WP_HOME" "${NGINX_WEBROOT}"/wp-config.php | cut -d \' -f 4)
+        if [ "$wpoldurl" != "${PROTOCOL}${SITE_URL}${SITE_PORT}" ]; then
+            if [ "${SITE_URL_UPDATE_MODE,,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "file" ]; then
+                print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in wp-config.php"
+                sed -i \
+                            -e "s|define( 'WP_HOME', '.*' );|define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );|g" \
+                            -e "s|define( 'WP_SITEURL', '.*' );|define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );|g"
+                        "${NGINX_WEBROOT}"/wp-config.php
+            fi
+            if [ "${SITE_URL_UPDATE_MODE,,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "db" ]; then
+                print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in database"
+                silent sudo -u "${NGINX_USER}" wp-cli search-replace "${wpoldurl}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid --path="${NGINX_WEBROOT}"
+            fi
         fi
     fi
 }

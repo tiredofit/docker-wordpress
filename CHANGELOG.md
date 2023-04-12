@@ -1,3 +1,12 @@
+## 5.5.0 2023-04-12 <dave at tiredofit dot ca>
+
+   ### Added
+      - Rotate DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME in wp-config.php on each startup
+      - Introduce ROTATE_KEYS variable to rotate salts and keys on each startup
+      - Correctly allow custom DB_PORTs to function
+      - Quiet down nginx log for some file types
+
+
 ## 5.4.6 2023-04-05 <dave at tiredofit dot ca>
 
    ### Changed

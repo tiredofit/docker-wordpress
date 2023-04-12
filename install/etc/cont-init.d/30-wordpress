@@ -10,7 +10,6 @@ sanity_var SITE_URL "Site URL"
 bootstrap_filesystem
 configure_nginx
 install_wordpress
-update_url_configuration
 create_bash_alias
 finalize_permissions
 print_info "Wordpress Initialization Complete, now starting webserver and PHP engine"
