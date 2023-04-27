@@ -124,26 +124,26 @@ Be sure to view the following repositories to understand all the customizable op
 | [Nginx](https://github.com/tiredofit/docker-nginx/)           | Nginx webserver                        |
 | [PHP-FPM](https://github.com/tiredofit/docker-nginx-php-fpm/) | PHP Interpreter                        |
 
-| Parameter                    | Description                                                                                                       | Default            |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------ |
-| `ADMIN_EMAIL`                | Email address for the Administrator - Needed for initial startup                                                  |                    |
-| `ADMIN_USER`                 | Username for the Administrator - Needed for initial startup                                                       | `admin`            |
-| `ADMIN_PASS`                 | Password for the Administrator - Needed for initial startup                                                       |                    |
-| `ENABLE_HTTPS_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs `TRUE` / `FALSE`                                               | `TRUE`             |
-| `DB_CHARSET`                 | MariaDB character set for tables                                                                                  | `utf8mb4`          |
-| `DB_HOST`                    | MariaDB external container hostname (e.g. wordpress-db)                                                           |                    |
-| `DB_NAME`                    | MariaDB database name i.e. (e.g. wordpress)                                                                       |                    |
-| `DB_USER`                    | MariaDB username for database (e.g. wordpress)                                                                    |                    |
-| `DB_PASS`                    | MariaDB password for database (e.g. userpassword)                                                                 |                    |
-| `DB_PORT`                    | MariaDB port for database                                                                                         | `3306`             |
-| `DB_PREFIX`                  | MariaDB Prefix for `DB_NAME`                                                                                      | `wp_`              |
-| `DEBUG_MODE`                 | Enable Debug Mode (verbosity) for the container installation/startup and in application - `TRUE` / `FALSE`        | `FALSE`            |
-| `ROTATE_KEYS`                | Rotate Salts and Keys on subsequent reboots `TRUE` / `FALSE`                                                      | `FALSE`            |
-| `SITE_LOCALE`                | What Locale to set site                                                                                           | `en_US`            |
-| `SITE_PORT`                  | What Port does wordpress deliver assets to                                                                        | `80`               |
-| `SITE_TITLE`                 | The title of the Website                                                                                          | `Docker Wordpress` |
-| `SITE_URL`                   | The Full site URL of the installation e.g. `wordpress.example.com` - Needed for initial startup                   |                    |
-| `SITE_URL_UPDATE_MODE`       | After first install, perform modifications to wp-config.php and DB if different Site URL `FILE` `DB` `ALL` `NONE` | `ALL`              |
+| Parameter                    | Description                                                                                                       | Default            | `_FILE` |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
+| `ADMIN_EMAIL`                | Email address for the Administrator - Needed for initial startup                                                  |                    | x       |
+| `ADMIN_USER`                 | Username for the Administrator - Needed for initial startup                                                       | `admin`            | x       |
+| `ADMIN_PASS`                 | Password for the Administrator - Needed for initial startup                                                       |                    | x       |
+| `ENABLE_HTTPS_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs `TRUE` / `FALSE`                                               | `TRUE`             |         |
+| `DB_CHARSET`                 | MariaDB character set for tables                                                                                  | `utf8mb4`          |         |
+| `DB_HOST`                    | MariaDB external container hostname (e.g. wordpress-db)                                                           |                    | x       |
+| `DB_NAME`                    | MariaDB database name i.e. (e.g. wordpress)                                                                       |                    | x       |
+| `DB_USER`                    | MariaDB username for database (e.g. wordpress)                                                                    |                    | x       |
+| `DB_PASS`                    | MariaDB password for database (e.g. userpassword)                                                                 |                    | x       |
+| `DB_PORT`                    | MariaDB port for database                                                                                         | `3306`             | x       |
+| `DB_PREFIX`                  | MariaDB Prefix for `DB_NAME`                                                                                      | `wp_`              | x       |
+| `DEBUG_MODE`                 | Enable Debug Mode (verbosity) for the container installation/startup and in application - `TRUE` / `FALSE`        | `FALSE`            |         |
+| `ROTATE_KEYS`                | Rotate Salts and Keys on subsequent reboots `TRUE` / `FALSE`                                                      | `FALSE`            |         |
+| `SITE_LOCALE`                | What Locale to set site                                                                                           | `en_US`            |         |
+| `SITE_PORT`                  | What Port does wordpress deliver assets to                                                                        | `80`               |         |
+| `SITE_TITLE`                 | The title of the Website                                                                                          | `Docker Wordpress` |         |
+| `SITE_URL`                   | The Full site URL of the installation e.g. `wordpress.example.com` - Needed for initial startup                   |                    |         |
+| `SITE_URL_UPDATE_MODE`       | After first install, perform modifications to wp-config.php and DB if different Site URL `FILE` `DB` `ALL` `NONE` | `ALL`              |         |
 
 
 ### Networking

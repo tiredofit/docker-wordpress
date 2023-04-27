@@ -7,14 +7,13 @@ services:
       - traefik.enable=true
       - traefik.http.routers.wordpress.rule=Host(`wordpress.example.com`)
       - traefik.http.services.wordpress.loadbalancer.server.port=80
-    links:
-      - wordpress-db
     volumes:
       - ./data/:/www/wordpress
       - ./logs/:/www/logs
     environment:
-
+      - TIMEZONE=America/Vancouver
       - CONTAINER_NAME=wordpress-app
+
       - DB_HOST=wordpress-db
       - DB_NAME=wordpress
       - DB_USER=wordpress
@@ -43,12 +42,14 @@ services:
     volumes:
       - ./db:/var/lib/mysql
     environment:
+      - TIMEZONE=America/Vancouver
+      - CONTAINER_NAME=wordpress-db
+
       - ROOT_PASS=password
+
       - DB_NAME=wordpress
       - DB_USER=wordpress
       - DB_PASS=userpassword
-
-      - CONTAINER_NAME=wordpress-db
     networks:
       - services
     restart: always
@@ -61,6 +62,9 @@ services:
     volumes:
       - ./dbbackup:/backup
     environment:
+      - TIMEZONE=America/Vancouver
+      - CONTAINER_NAME=wordpress-db-backup
+
       - DB_HOST=wordpress-db
       - DB_TYPE=mariadb
       - DB_NAME=wordpress
@@ -69,7 +73,6 @@ services:
       - DB_DUMP_FREQ=1440
       - DB_DUMP_BEGIN=0000
       - DB_CLEANUP_TIME=8640
-      - COMPRESSION=BZ
     networks:
       - services
     restart: always
