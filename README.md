@@ -66,7 +66,7 @@ Clone this repository and build the image with `docker build <arguments> (imagen
 Builds of the image are available on [Docker Hub](https://hub.docker.com/r/tiredofit/wordpress)
 
 ```bash
-docker pull docker.io/tiredofdit/wordpress:(imagetag)
+docker pull docker.io/tiredofit/wordpress:(imagetag)
 ```
 
 Builds of the image are also available on the [Github Container Registry](https://github.com/tiredofit/docker-wordpress/pkgs/container/docker-wordpress)
