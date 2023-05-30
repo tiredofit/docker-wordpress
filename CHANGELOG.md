@@ -1,3 +1,9 @@
+## 5.7.0 2023-05-29 <dave at tiredofit dot ca>
+
+   ### Added
+      - Add UPDATE_MODE environment variable (default minor) to control Wordpress manor, minor automatic updating
+
+
 ## 5.6.0 2023-04-26 <dave at tiredofit dot ca>
 
    ### Added

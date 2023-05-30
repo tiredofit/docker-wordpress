@@ -44,8 +44,14 @@ install_wordpress() {
                     DB_PORT \
                     DB_PREFIX \
                     DB_USER
-    if [ ! -f "${NGINX_WEBROOT}"/wp-load.php ] ; then
 
+    case "${UPDATE_MODE,,}" in
+        all | major | true | enable* | yes ) UPDATE_MODE=true ;;
+        none | false | disable* | no ) UPDATE_MODE=false ;;
+        minor ) UPDATE_MODE=minor ;;
+    esac
+
+    if [ ! -f "${NGINX_WEBROOT}"/wp-load.php ] ; then
 
         sanity_var ADMIN_EMAIL "Admin Email"
         sanity_var ADMIN_PASS "Admin Password"
@@ -59,6 +65,7 @@ install_wordpress() {
         ### Add URL information to allow for switching host/domainnames easily
         echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
         echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        echo "define( 'WP_AUTO_UPDATE_CORE', '${UPDATE_MODE,,}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
         silent rm -rf "${NGINX_WEBROOT}"/readme.html
         silent rm -rf "${NGINX_WEBROOT}"/license.txt
         silent rm -rf "${NGINX_WEBROOT}"/wp-content/plugins/hello.php
@@ -70,6 +77,10 @@ install_wordpress() {
 
         if ! grep -c -q "'WP_SITEURL'" "${NGINX_WEBROOT}"/wp-config.php ; then
             echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        fi
+
+        if ! grep -c -q "'WP_AUTO_UPDATE_CORE'" "${NGINX_WEBROOT}"/wp-config.php ; then
+            echo "define( 'WP_AUTO_UPDATE_CORE', '${UPDATE_MODE,,}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
         fi
 
         sed -i \
@@ -99,5 +110,7 @@ install_wordpress() {
                 silent sudo -u "${NGINX_USER}" wp-cli search-replace "${wpoldurl}" "${PROTOCOL}${SITE_URL}${SITE_PORT}" --skip-columns=guid --path="${NGINX_WEBROOT}"
             fi
         fi
+
+
     fi
 }

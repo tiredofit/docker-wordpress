@@ -144,7 +144,7 @@ Be sure to view the following repositories to understand all the customizable op
 | `SITE_TITLE`                 | The title of the Website                                                                                          | `Docker Wordpress` |         |
 | `SITE_URL`                   | The Full site URL of the installation e.g. `wordpress.example.com` - Needed for initial startup                   |                    |         |
 | `SITE_URL_UPDATE_MODE`       | After first install, perform modifications to wp-config.php and DB if different Site URL `FILE` `DB` `ALL` `NONE` | `ALL`              |         |
-
+| `UPDATE_MODE`                | `ALL` to enable all major, minor updates, `MINOR` to only allow minor updates `NONE` to disable all updates       | `minor`            |         |
 
 ### Networking
 
