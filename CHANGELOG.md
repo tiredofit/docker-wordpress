@@ -1,3 +1,9 @@
+## 5.7.1 2023-06-13 <dave at tiredofit dot ca>
+
+   ### Added
+      - Add xmlstarlet package
+
+
 ## 5.7.0 2023-05-29 <dave at tiredofit dot ca>
 
    ### Added
