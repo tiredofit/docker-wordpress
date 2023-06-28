@@ -1,3 +1,9 @@
+## 5.7.2 2023-06-28 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Revert nginx configuration to <5.5.0 versioning letting upstream nginx image handle caching and logging optimizations
+
+
 ## 5.7.1 2023-06-13 <dave at tiredofit dot ca>
 
    ### Added
