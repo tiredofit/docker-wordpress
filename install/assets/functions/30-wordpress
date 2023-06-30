@@ -87,7 +87,7 @@ install_wordpress() {
                     -e "s|define( 'DB_NAME', '.*' );|define( 'DB_NAME', '${DB_NAME}' );|g" \
                     -e "s|define( 'DB_USER', '.*' );|define( 'DB_USER', '${DB_USER}' );|g" \
                     -e "s|define( 'DB_PASSWORD', '.*' );|define( 'DB_PASSWORD', '${DB_PASS}' );|g" \
-                    -e "s|define( 'DB_CHARSET', '.*' );|define( 'DB_CHARSET', '${DB_CHARSET}' );|g"
+                    -e "s|define( 'DB_CHARSET', '.*' );|define( 'DB_CHARSET', '${DB_CHARSET}' );|g" \
                 "${NGINX_WEBROOT}"/wp-config.php
 
         if var_true "${ROTATE_KEYS}" ; then
@@ -101,7 +101,7 @@ install_wordpress() {
                 print_notice "Modifying wordpress to serve from ${wpoldurl} to ${PROTOCOL}${SITE_URL}${SITE_PORT} in wp-config.php"
                 sed -i \
                             -e "s|define( 'WP_HOME', '.*' );|define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );|g" \
-                            -e "s|define( 'WP_SITEURL', '.*' );|define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );|g"
+                            -e "s|define( 'WP_SITEURL', '.*' );|define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );|g" \
                         "${NGINX_WEBROOT}"/wp-config.php
             fi
             if [ "${SITE_URL_UPDATE_MODE,,}" = "all" ] || [ "${SITE_URL_UPDATE_MODE,,}" = "db" ]; then

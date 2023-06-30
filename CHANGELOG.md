@@ -1,3 +1,9 @@
+## 5.7.3 2023-06-29 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Resolve multi lined sed expression joining
+
+
 ## 5.7.2 2023-06-28 <dave at tiredofit dot ca>
 
    ### Changed
