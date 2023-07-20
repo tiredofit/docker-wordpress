@@ -1,3 +1,9 @@
+## 5.7.4 2023-07-20 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Quiet down some output on screen when performing update setup except if LOG_LEVEL=DEBUG
+
+
 ## 5.7.3 2023-06-29 <dave at tiredofit dot ca>
 
    ### Changed
