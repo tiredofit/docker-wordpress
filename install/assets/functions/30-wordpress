@@ -62,24 +62,24 @@ install_wordpress() {
         sudo -u "${NGINX_USER}" chmod 644 wp-config.php
 
         ### Add URL information to allow for switching host/domainnames easily
-        echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
-        echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
-        echo "define( 'WP_AUTO_UPDATE_CORE', '${UPDATE_MODE,,}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | silent sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | silent sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+        echo "define( 'WP_AUTO_UPDATE_CORE', '${UPDATE_MODE,,}' );" | silent sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
         silent rm -rf "${NGINX_WEBROOT}"/readme.html
         silent rm -rf "${NGINX_WEBROOT}"/license.txt
         silent rm -rf "${NGINX_WEBROOT}"/wp-content/plugins/hello.php
         silent chown -R "${NGINX_USER}":"${NGINX_GROUP}" "${NGINX_WEBROOT}"
     else
         if ! grep -c -q "'WP_HOME'" "${NGINX_WEBROOT}"/wp-config.php ; then
-            echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+            echo "define( 'WP_HOME', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | silent sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
         fi
 
         if ! grep -c -q "'WP_SITEURL'" "${NGINX_WEBROOT}"/wp-config.php ; then
-            echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+            echo "define( 'WP_SITEURL', '${PROTOCOL}${SITE_URL}${SITE_PORT}' );" | silent sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
         fi
 
         if ! grep -c -q "'WP_AUTO_UPDATE_CORE'" "${NGINX_WEBROOT}"/wp-config.php ; then
-            echo "define( 'WP_AUTO_UPDATE_CORE', '${UPDATE_MODE,,}' );" | sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
+            echo "define( 'WP_AUTO_UPDATE_CORE', '${UPDATE_MODE,,}' );" | silent sudo -u "${NGINX_USER}" tee -a "${NGINX_WEBROOT}"/wp-config.php
         fi
 
         sed -i \
