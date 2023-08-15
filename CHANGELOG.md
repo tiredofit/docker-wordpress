@@ -1,3 +1,9 @@
+## 5.7.5 2023-08-15 <fermion2020@github>
+
+   ### Changed
+      - Fix issue with different default values of ENABLE_HTTPS_REVERSE_PROXY environment variable
+
+
 ## 5.7.4 2023-07-20 <dave at tiredofit dot ca>
 
    ### Changed
