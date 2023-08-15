@@ -8,11 +8,11 @@ bootstrap_filesystem() {
 configure_nginx() {
     ### Perform Nginx reverse proxy modifications
     if var_true "${ENABLE_HTTPS_REVERSE_PROXY}" ; then
-        sed -i "s|fastcgi_param  HTTPS '.*';|fastcgi_param  HTTPS 'on';|g" /etc/nginx/fastcgi_params
+        sed -i "s|^fastcgi_param  HTTPS .*$|fastcgi_param  HTTPS 'on';|g" /etc/nginx/fastcgi_params
         PROTOCOL="https://"
     else
         print_warn "Disabling Nginx Reverse Proxy HTTPS Termination Support"
-        sed -i "s|fastcgi_param  HTTPS '.*';|fastcgi_param  HTTPS 'off';|g" /etc/nginx/fastcgi_params
+        sed -i "s|^fastcgi_param  HTTPS .*$|fastcgi_param  HTTPS 'off';|g" /etc/nginx/fastcgi_params
         PROTOCOL="http://"
     fi
 }
