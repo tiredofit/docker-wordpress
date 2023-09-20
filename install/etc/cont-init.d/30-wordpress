@@ -8,7 +8,7 @@ sanity_db mariadb
 db_ready mariadb
 sanity_var SITE_URL "Site URL"
 bootstrap_filesystem
-configure_nginx
+#configure_nginx
 install_wordpress
 create_bash_alias
 finalize_permissions
