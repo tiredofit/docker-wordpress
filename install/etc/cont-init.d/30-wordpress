@@ -7,11 +7,11 @@ PROCESS_NAME="wordpress"
 sanity_db mariadb
 db_ready mariadb
 sanity_var SITE_URL "Site URL"
-bootstrap_filesystem
-configure_unit
-install_wordpress
-create_bash_alias
-finalize_permissions
+_wordpress_bootstrap_filesystem
+_wordpress_configure_unit
+_wordpress_install_wordpress
+_wordpress_create_bash_alias
+_wordpress_finalize_permissions
 print_info "Wordpress Initialization Complete, now starting webserver and PHP engine"
 
 liftoff

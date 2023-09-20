@@ -1,11 +1,11 @@
 #!/command/with-contenv bash
 
-bootstrap_filesystem() {
+_wordpress_bootstrap_filesystem() {
     mkdir -p "${UNIT_WEBROOT}"
     chown "${UNIT_USER}":"${UNIT_GROUP}" "${UNIT_WEBROOT}"
 }
 
-configure_unit() {
+_wordpress_configure_unit() {
     ### Perform Nginx reverse proxy modifications
     if var_true "${ENABLE_HTTPS_REVERSE_PROXY}" ; then
         PROTOCOL="https://"
@@ -15,7 +15,7 @@ configure_unit() {
     fi
 }
 
-create_bash_alias() {
+_wordpress_create_bash_alias() {
     cat >> /root/.bashrc <<EOF
 function wp-cli() {
       export oldpwd="\$(pwd)"
@@ -26,13 +26,13 @@ function wp-cli() {
 EOF
 }
 
-finalize_permissions() {
+_wordpress_finalize_permissions() {
     if var_true "${UNIT_FORCE_RESET_PERMISSIONS}" ; then
         chown -R "${UNIT_USER}":"${UNIT_GROUP}" "${UNIT_WEBROOT}"
     fi
 }
 
-install_wordpress() {
+_wordpress_install_wordpress() {
     transform_file_var \
                     ADMIN_EMAIL \
                     ADMIN_USER \
