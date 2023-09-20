@@ -108,7 +108,7 @@ The following directories are used for configuration and can be mapped for persi
 | Directory        | Description                |
 | ---------------- | -------------------------- |
 | `/www/wordpress` | Root Wordpress Directory   |
-| `/www/logs`      | Nginx and php-fpm logfiles |
+| `/var/log/unit`      | Unit logfiles |
 
 ### Environment Variables
 
@@ -118,18 +118,18 @@ This image relies on an [Alpine Linux](https://hub.docker.com/r/tiredofit/alpine
 
 Be sure to view the following repositories to understand all the customizable options:
 
-| Image                                                         | Description                            |
-| ------------------------------------------------------------- | -------------------------------------- |
-| [OS Base](https://github.com/tiredofit/docker-alpine/)        | Customized Image based on Alpine Linux |
-| [Nginx](https://github.com/tiredofit/docker-nginx/)           | Nginx webserver                        |
-| [PHP-FPM](https://github.com/tiredofit/docker-nginx-php-fpm/) | PHP Interpreter                        |
+| Image                                                  | Description                            |
+| ------------------------------------------------------ | -------------------------------------- |
+| [OS Base](https://github.com/tiredofit/docker-alpine/) | Customized Image based on Alpine Linux |
+| [Unit](https://github.com/tiredofit/docker-unit/)      | Unit Application server                |
+| [PHP](https://github.com/tiredofit/docker-unit-php/)   | PHP Interpreter overlay                |
 
 | Parameter                    | Description                                                                                                       | Default            | `_FILE` |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
 | `ADMIN_EMAIL`                | Email address for the Administrator - Needed for initial startup                                                  |                    | x       |
 | `ADMIN_USER`                 | Username for the Administrator - Needed for initial startup                                                       | `admin`            | x       |
 | `ADMIN_PASS`                 | Password for the Administrator - Needed for initial startup                                                       |                    | x       |
-| `ENABLE_HTTPS_REVERSE_PROXY` | Tweak nginx to run behind a reverse proxy for URLs `TRUE` / `FALSE`                                               | `TRUE`             |         |
+| `ENABLE_HTTPS_REVERSE_PROXY` | Make URLs from Wordpress route to https:// instead of http:// `TRUE` / `FALSE`                                    | `TRUE`             |         |
 | `DB_CHARSET`                 | MariaDB character set for tables                                                                                  | `utf8mb4`          |         |
 | `DB_HOST`                    | MariaDB external container hostname (e.g. wordpress-db)                                                           |                    | x       |
 | `DB_NAME`                    | MariaDB database name i.e. (e.g. wordpress)                                                                       |                    | x       |
@@ -140,7 +140,7 @@ Be sure to view the following repositories to understand all the customizable op
 | `DEBUG_MODE`                 | Enable Debug Mode (verbosity) for the container installation/startup and in application - `TRUE` / `FALSE`        | `FALSE`            |         |
 | `ROTATE_KEYS`                | Rotate Salts and Keys on subsequent reboots `TRUE` / `FALSE`                                                      | `FALSE`            |         |
 | `SITE_LOCALE`                | What Locale to set site                                                                                           | `en_US`            |         |
-| `SITE_PORT`                  | What Port does wordpress deliver assets to                                                                        | `80`               |         |
+| `SITE_PORT`                  | (optional) What Port does wordpress deliver assets to                                                             | `80`               |         |
 | `SITE_TITLE`                 | The title of the Website                                                                                          | `Docker Wordpress` |         |
 | `SITE_URL`                   | The Full site URL of the installation e.g. `wordpress.example.com` - Needed for initial startup                   |                    |         |
 | `SITE_URL_UPDATE_MODE`       | After first install, perform modifications to wp-config.php and DB if different Site URL `FILE` `DB` `ALL` `NONE` | `ALL`              |         |

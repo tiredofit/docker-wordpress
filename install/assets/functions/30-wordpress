@@ -5,14 +5,12 @@ bootstrap_filesystem() {
     chown "${UNIT_USER}":"${UNIT_GROUP}" "${UNIT_WEBROOT}"
 }
 
-configure_nginx() {
+configure_unit() {
     ### Perform Nginx reverse proxy modifications
     if var_true "${ENABLE_HTTPS_REVERSE_PROXY}" ; then
-        sed -i "s|^fastcgi_param  HTTPS .*$|fastcgi_param  HTTPS 'on';|g" /etc/nginx/fastcgi_params
         PROTOCOL="https://"
     else
         print_warn "Disabling Nginx Reverse Proxy HTTPS Termination Support"
-        sed -i "s|^fastcgi_param  HTTPS .*$|fastcgi_param  HTTPS 'off';|g" /etc/nginx/fastcgi_params
         PROTOCOL="http://"
     fi
 }
@@ -54,7 +52,7 @@ install_wordpress() {
     if [ ! -f "${UNIT_WEBROOT}"/wp-load.php ] ; then
         sanity_var ADMIN_EMAIL "Admin Email"
         sanity_var ADMIN_PASS "Admin Password"
-        print_warn "Wordpress Installation not found, Downloading and setting up - Please wait 1-3 minutes.."
+        print_warn "Wordpress Installation not found, Downloading and setting up - Please wait up to 1-3 minutes.."
         cd "${UNIT_WEBROOT}"
         silent sudo -u "${UNIT_USER}" wp-cli core download --locale="${SITE_LOCALE}"
         silent sudo -u "${UNIT_USER}" wp-cli core config --dbhost="${DB_HOST}":"${DB_PORT}" --dbname="${DB_NAME}" --dbprefix="${DB_PREFIX}" --dbuser="${DB_USER}" --dbpass="${DB_PASS}" --dbcharset="${DB_CHARSET}"
