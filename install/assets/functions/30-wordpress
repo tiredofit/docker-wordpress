@@ -6,11 +6,9 @@ _wordpress_bootstrap_filesystem() {
 }
 
 _wordpress_configure_unit() {
-    ### Perform Nginx reverse proxy modifications
     if var_true "${ENABLE_HTTPS_REVERSE_PROXY}" ; then
         PROTOCOL="https://"
     else
-        print_warn "Disabling Nginx Reverse Proxy HTTPS Termination Support"
         PROTOCOL="http://"
     fi
 }

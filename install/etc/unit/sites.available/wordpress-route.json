@@ -1,0 +1,23 @@
+[
+    {
+        "match": {
+            "uri": [
+                "*.php",
+                "*.php/*",
+                "/wp-admin/"
+            ]
+        },
+
+        "action": {
+            "pass": "applications/{{UNIT_SITE_ENABLED}}/direct"
+        }
+    },
+    {
+        "action": {
+            "share": "{{UNIT_WEBROOT}}/$uri",
+            "fallback": {
+                "pass": "applications/{{UNIT_SITE_ENABLED}}/index"
+            }
+        }
+    }
+]
