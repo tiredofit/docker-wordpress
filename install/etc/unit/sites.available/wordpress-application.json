@@ -1,13 +1,15 @@
-"{{UNIT_SITE_ENABLED}}": {
-    "type": "php",
-    "targets": {
-        "direct": {
-            "root": "{{UNIT_WEBROOT}}/"
-        },
+{
+    "{{UNIT_SITE_ENABLED}}": {
+        "type": "php",
+        "targets": {
+            "direct": {
+                "root": "{{UNIT_WEBROOT}}/"
+            },
 
-        "index": {
-            "root": "{{UNIT_WEBROOT}}",
-            "script": "index.php"
+            "index": {
+                "root": "{{UNIT_WEBROOT}}/",
+                "script": "index.php"
+            }
         }
     }
 }

@@ -105,10 +105,10 @@ Images are built primarily for `amd64` architecture, and may also include builds
 
 The following directories are used for configuration and can be mapped for persistent storage.
 
-| Directory        | Description                |
-| ---------------- | -------------------------- |
-| `/www/wordpress` | Root Wordpress Directory   |
-| `/var/log/unit`      | Unit logfiles |
+| Directory        | Description              |
+| ---------------- | ------------------------ |
+| `/www/wordpress` | Root Wordpress Directory |
+| `/var/log/unit`  | Unit logfiles            |
 
 ### Environment Variables
 
