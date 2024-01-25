@@ -37,3 +37,6 @@ jobs:
   php82:
     uses: tiredofit/github_actions/.github/workflows/php82_alpine_amd64_armv7_arm64.yml@main
     secrets: inherit
+  php83:
+    uses: tiredofit/github_actions/.github/workflows/php83_alpine_amd64_armv7_arm64.yml@main
+    secrets: inherit
