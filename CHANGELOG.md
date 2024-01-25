@@ -1,3 +1,9 @@
+## 5.8.0 2024-01-25 <dave at tiredofit dot ca>
+
+   ### Added
+      - Change sed statements to use wp-cli
+
+
 ## 5.7.5 2023-08-15 <fermion2020@github>
 
    ### Changed
