@@ -1,3 +1,9 @@
+## 5.8.1 2024-03-25 <dave at tiredofit dot ca>
+
+   ### Added
+      - Decalre a series of PHP extensions enabled (exif,gd,imagick,redis,shmop,simplexml,xml,xmlreader,zip,zlib)
+
+
 ## 5.8.0 2024-01-25 <dave at tiredofit dot ca>
 
    ### Added

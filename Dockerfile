@@ -5,7 +5,18 @@ FROM docker.io/tiredofit/nginx-php-fpm:${PHP_VERSION}-${DISTRO}
 LABEL maintainer="Dave Conroy (github.com/tiredofit)"
 
 ENV PHP_ENABLE_CREATE_SAMPLE_PHP=FALSE \
+    PHP_ENABLE_EXIF=TRUE \
+    PHP_ENABLE_GD=TRUE \
+    PHP_ENABLE_IGBINARY=TRUE \
+    PHP_ENABLE_IMAGICK=TRUE \
     PHP_ENABLE_MYSQLI=TRUE \
+    PHP_ENABLE_REDIS=TRUE \
+    PHP_ENABLE_SHMOP=TRUE \
+    PHP_ENABLE_SIMPLEXML=TRUE \
+    PHP_ENABLE_XML=TRUE \
+    PHP_ENABLE_XMLREADER=TRUE \
+    PHP_ENABLE_ZIP=TRUE \
+    PHP_ENABLE_ZLIB=TRUE \
     NGINX_WEBROOT="/www/wordpress" \
     NGINX_SITE_ENABLED="wordpress" \
     IMAGE_NAME="tiredofit/wordpress" \
