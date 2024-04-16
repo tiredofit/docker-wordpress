@@ -1,3 +1,10 @@
+## 5.8.2 2024-04-16 <dave at tiredofit dot ca>
+
+   ### Changed
+      - Remove PHP_ENABLE_ZLIB to quiet down some warnings
+      - Rebuild to fix some upstream issues with imagemagick
+
+
 ## 5.8.1 2024-03-25 <dave at tiredofit dot ca>
 
    ### Added
